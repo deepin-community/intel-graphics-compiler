@@ -1,0 +1,2594 @@
+From 172ae11311d3e93f3c6d25f9bfd6257d30561bae Mon Sep 17 00:00:00 2001
+From: Andreas Beckmann <anbe@debian.org>
+Date: Tue, 30 Aug 2022 14:54:34 +0200
+Subject: [PATCH] fix typos found by Lintian
+
+Forwarded: https://github.com/intel/intel-graphics-compiler/issues/229
+---
+ 3d/common/iStdLib/FastMask.h                  |  2 +-
+ IGC/AdaptorOCL/OCL/Platform/cmd_parser_g8.cpp |  4 +-
+ .../OCL/Platform/cmd_shared_def_g8.h          |  2 +-
+ .../OCL/Platform/cmd_shared_init_g8.h         |  2 +-
+ IGC/AdaptorOCL/SPIRV/SPIRVReader.cpp          |  2 +-
+ .../Implementation/IMF/FP32/tgamma_s_ep.cl    |  2 +-
+ IGC/BiFModule/Implementation/atomics.cl       |  2 +-
+ IGC/BiFModule/Implementation/barrier.cl       |  2 +-
+ IGC/BiFModule/Implementation/group.cl         |  4 +-
+ IGC/Compiler/CISACodeGen/CISABuilder.cpp      |  4 +-
+ IGC/Compiler/CISACodeGen/CVariable.hpp        |  2 +-
+ .../CISACodeGen/ComputeShaderBase.cpp         |  2 +-
+ IGC/Compiler/CISACodeGen/DebugInfo.cpp        |  4 +-
+ IGC/Compiler/CISACodeGen/EmitVISAPass.cpp     | 16 +++----
+ IGC/Compiler/CISACodeGen/MemOpt.cpp           |  4 +-
+ IGC/Compiler/CISACodeGen/PatternMatchPass.cpp |  4 +-
+ IGC/Compiler/CISACodeGen/Platform.hpp         |  2 +-
+ IGC/Compiler/CISACodeGen/PromoteInt8Type.cpp  |  2 +-
+ IGC/Compiler/CISACodeGen/VectorPreProcess.cpp |  8 ++--
+ IGC/Compiler/CISACodeGen/VectorProcess.cpp    |  2 +-
+ IGC/Compiler/CISACodeGen/helper.cpp           |  4 +-
+ IGC/Compiler/CodeGenPublicEnums.h             |  2 +-
+ IGC/Compiler/CustomLoopOpt.hpp                |  2 +-
+ IGC/Compiler/CustomSafeOptPass.cpp            | 16 +++----
+ IGC/Compiler/DebugInfo/ScalarVISAModule.cpp   |  2 +-
+ IGC/Compiler/GenTTI.cpp                       |  2 +-
+ .../IGCInstCombiner/4.0/InstCombineAddSub.cpp |  4 +-
+ .../IGCInstCombiner/7.0/InstCombineAddSub.cpp |  4 +-
+ IGC/Compiler/Optimizer/OCLBIUtils.cpp         |  2 +-
+ IGC/Compiler/Optimizer/OCLBIUtils.h           |  8 ++--
+ .../AggregateArguments/AggregateArguments.cpp |  2 +-
+ .../ImageFuncs/ImageFuncResolution.hpp        | 12 ++---
+ .../LSCFuncs/LSCFuncsResolution.cpp           |  2 +-
+ .../NamedBarriers/NamedBarriersResolution.cpp |  2 +-
+ .../OpenCLPrintf/OpenCLPrintfResolution.cpp   |  2 +-
+ .../ProgramScopeConstantAnalysis.cpp          |  2 +-
+ .../ReplaceUnsupportedIntrinsics.cpp          |  2 +-
+ .../Optimizer/PreCompiledFuncImport.cpp       |  2 +-
+ .../Optimizer/RectListOptimizationPass.cpp    |  4 +-
+ IGC/Compiler/PromoteResourceToDirectAS.cpp    |  2 +-
+ IGC/DebugInfo/DIE.cpp                         |  2 +-
+ IGC/DebugInfo/DwarfDebug.cpp                  |  6 +--
+ IGC/DebugInfo/VISAModule.cpp                  |  2 +-
+ IGC/GenISAIntrinsics/Intrinsic_definitions.py |  6 +--
+ IGC/Metrics/IGCMetricImpl.cpp                 |  2 +-
+ .../include/igc/Options/VCInternalOptions.td  |  2 +-
+ .../igcdeps/src/PatchTokens.cpp               |  2 +-
+ .../igcdeps/src/TranslationInterface.cpp      |  2 +-
+ IGC/VectorCompiler/include/vc/Driver/Driver.h |  2 +-
+ .../include/vc/Support/BackendConfig.h        |  2 +-
+ IGC/VectorCompiler/lib/Driver/Driver.cpp      |  4 +-
+ IGC/VectorCompiler/lib/GenXCodeGen/GenX.td    |  6 +--
+ .../GenXAggregatePseudoLowering.cpp           |  2 +-
+ .../lib/GenXCodeGen/GenXBaling.cpp            | 12 ++---
+ .../lib/GenXCodeGen/GenXBaling.h              |  2 +-
+ .../lib/GenXCodeGen/GenXEmulate.cpp           |  2 +-
+ .../lib/GenXCodeGen/GenXIntrinsics.h          |  2 +-
+ .../lib/GenXCodeGen/GenXLoadStoreLowering.cpp |  2 +-
+ .../lib/GenXCodeGen/GenXLowering.cpp          | 12 ++---
+ .../lib/GenXCodeGen/GenXStructSplitter.cpp    | 12 ++---
+ .../lib/GenXCodeGen/GenXSubtarget.h           |  6 +--
+ .../lib/GenXCodeGen/GenXVectorCombiner.cpp    |  2 +-
+ .../lib/Support/BackendConfig.cpp             |  2 +-
+ .../lib/Support/PassManager.cpp               |  6 +--
+ IGC/cmake/igc_llvm_utils.cmake                |  2 +-
+ IGC/common/LLVMUtils.cpp                      |  2 +-
+ IGC/common/MDFrameWork.h                      |  2 +-
+ IGC/common/ModuleSplitter.cpp                 | 14 +++---
+ IGC/common/ModuleSplitter.h                   |  2 +-
+ IGC/common/ShaderOverride.cpp                 |  4 +-
+ IGC/common/SysUtils.cpp                       |  4 +-
+ IGC/common/igc_flags.h                        | 10 ++---
+ documentation/shader_dumps_instruction.md     |  2 +-
+ scripts/buildIGC.sh                           |  2 +-
+ scripts/buildSLT.sh                           |  2 +-
+ visa/BuildCISAIRImpl.cpp                      |  6 +--
+ visa/DebugInfo.cpp                            |  6 +--
+ visa/G4Instruction.h                          |  2 +-
+ visa/G4_IR.cpp                                |  2 +-
+ visa/G4_IR.hpp                                |  2 +-
+ visa/G4_Kernel.hpp                            |  2 +-
+ visa/GraphColor.cpp                           | 44 +++++++++----------
+ visa/GraphColor.h                             | 10 ++---
+ visa/HWCaps.inc                               |  4 +-
+ visa/HWConformity.cpp                         |  2 +-
+ visa/LocalRA.cpp                              |  6 +--
+ visa/LocalScheduler/SWSB_G4IR.cpp             |  8 ++--
+ visa/LoopAnalysis.cpp                         |  4 +-
+ visa/Optimizer.cpp                            | 14 +++---
+ visa/Option.cpp                               |  2 +-
+ visa/Passes/LVN.cpp                           |  6 +--
+ visa/PhyRegUsage.cpp                          |  2 +-
+ visa/RPE.h                                    |  2 +-
+ visa/RegAlloc.cpp                             |  8 ++--
+ visa/Rematerialization.cpp                    |  2 +-
+ visa/SpillCleanup.cpp                         |  8 ++--
+ visa/SpillCode.cpp                            |  4 +-
+ visa/SpillCode.h                              |  2 +-
+ visa/SpillManagerGMRF.cpp                     | 14 +++---
+ visa/SplitAlignedScalars.cpp                  |  4 +-
+ visa/VISAKernelImpl.cpp                       |  4 +-
+ visa/VarSplit.cpp                             | 10 ++---
+ visa/VisaToG4/TranslateMisc.cpp               |  2 +-
+ visa/iga/IGALibrary/Frontend/Formatter.cpp    |  2 +-
+ visa/iga/IGALibrary/IR/RegDeps.hpp            |  2 +-
+ visa/iga/IGALibrary/IR/SWSBSetter.cpp         |  2 +-
+ visa/iga/IGALibrary/Models/OpSpec.cpp         |  2 +-
+ visa/include/VISAOptionsDefs.h                |  2 +-
+ 108 files changed, 244 insertions(+), 244 deletions(-)
+
+diff --git a/3d/common/iStdLib/FastMask.h b/3d/common/iStdLib/FastMask.h
+index 05f657cf9..fd0211498 100644
+--- a/3d/common/iStdLib/FastMask.h
++++ b/3d/common/iStdLib/FastMask.h
+@@ -375,7 +375,7 @@ void CFastMaskSetType::ClearBits( void )
+         index = m_SetList[i];
+ 
+         // the user can un-set bits prior to calling clear and we need to ensure
+-        //  that we dont try to change those entries as they dont matter and could
++        //  that we don't try to change those entries as they don't matter and could
+         //  corrupt the heap
+         if( index != m_Key )
+         {
+diff --git a/IGC/AdaptorOCL/OCL/Platform/cmd_parser_g8.cpp b/IGC/AdaptorOCL/OCL/Platform/cmd_parser_g8.cpp
+index 77532c664..34cd75ab8 100644
+--- a/IGC/AdaptorOCL/OCL/Platform/cmd_parser_g8.cpp
++++ b/IGC/AdaptorOCL/OCL/Platform/cmd_parser_g8.cpp
+@@ -386,8 +386,8 @@ void DebugSurfaceStateCommand(
+                 ICBE_DPF_STR( output, GFXDBG_HARDWARE, "\tAuxiliarySurfacePitch           : %x\n",
+                     p3DStateSurfaceState->DW6.Gen9.SurfaceOther.AuxiliarySurfacePitch);
+ 
+-                ICBE_DPF_STR( output, GFXDBG_HARDWARE, "\tAuxilarySurfaceQPitch           : %x\n",
+-                    p3DStateSurfaceState->DW6.Gen9.SurfaceOther.AuxilarySurfaceQPitch);
++                ICBE_DPF_STR( output, GFXDBG_HARDWARE, "\tAuxiliarySurfaceQPitch          : %x\n",
++                    p3DStateSurfaceState->DW6.Gen9.SurfaceOther.AuxiliarySurfaceQPitch);
+             }
+ 
+             // DWORD7
+diff --git a/IGC/AdaptorOCL/OCL/Platform/cmd_shared_def_g8.h b/IGC/AdaptorOCL/OCL/Platform/cmd_shared_def_g8.h
+index 84a0e24b4..1282adb96 100644
+--- a/IGC/AdaptorOCL/OCL/Platform/cmd_shared_def_g8.h
++++ b/IGC/AdaptorOCL/OCL/Platform/cmd_shared_def_g8.h
+@@ -952,7 +952,7 @@ struct SSharedStateSurfaceState
+                 DWORD   RenderTargetCompressionEnable       : BITFIELD_BIT(   2      );   //
+                 DWORD   AuxiliarySurfacePitch               : BITFIELD_RANGE( 3,  11 );   // U9
+                 DWORD   _Unused1                            : BITFIELD_RANGE( 12, 15 );   // reserved
+-                DWORD   AuxilarySurfaceQPitch               : BITFIELD_RANGE( 16, 30 );   //
++                DWORD   AuxiliarySurfaceQPitch              : BITFIELD_RANGE( 16, 30 );   //
+                 DWORD   _Unused2                            : BITFIELD_BIT(   31     );   // reserved
+             } SurfaceOther;
+         } Gen9;
+diff --git a/IGC/AdaptorOCL/OCL/Platform/cmd_shared_init_g8.h b/IGC/AdaptorOCL/OCL/Platform/cmd_shared_init_g8.h
+index 8cd20386e..43dffc319 100644
+--- a/IGC/AdaptorOCL/OCL/Platform/cmd_shared_init_g8.h
++++ b/IGC/AdaptorOCL/OCL/Platform/cmd_shared_init_g8.h
+@@ -606,7 +606,7 @@ static const SSharedStateSurfaceState::_DW6::_Gen9::_SurfaceOther
+     false,                                              // RenderTargetCompressionEnable
+     0,                                                  // AuxiliarySurfacePitch
+     0,                                                  // _Unused1
+-    0,                                                  // AuxilarySurfaceQPitch
++    0,                                                  // AuxiliarySurfaceQPitch
+     0                                                   // _Unused2
+ };
+ 
+diff --git a/IGC/AdaptorOCL/SPIRV/SPIRVReader.cpp b/IGC/AdaptorOCL/SPIRV/SPIRVReader.cpp
+index 29d098d73..d82a32e98 100644
+--- a/IGC/AdaptorOCL/SPIRV/SPIRVReader.cpp
++++ b/IGC/AdaptorOCL/SPIRV/SPIRVReader.cpp
+@@ -2601,7 +2601,7 @@ SPIRVToLLVM::transCmpInst(SPIRVValue* BV, BasicBlock* BB, Function* F) {
+ 
+ bool
+ SPIRVToLLVM::postProcessOCL() {
+-  // I think we dont need it
++  // I think we don't need it
+   std::vector <Function*> structFuncs;
+   for (auto& F : M->functions())
+   {
+diff --git a/IGC/BiFModule/Implementation/IMF/FP32/tgamma_s_ep.cl b/IGC/BiFModule/Implementation/IMF/FP32/tgamma_s_ep.cl
+index 0fa7de2f7..1d515f690 100644
+--- a/IGC/BiFModule/Implementation/IMF/FP32/tgamma_s_ep.cl
++++ b/IGC/BiFModule/Implementation/IMF/FP32/tgamma_s_ep.cl
+@@ -502,7 +502,7 @@ inline int __internal_stgamma_ep_cout (float *a, float *r)
+                 curabsx = absx;
+             }
+ 
+-            // splitted intervals:
++            // split intervals:
+             // x >= 1.75
+             if (curabsx >= __stgamma_ep_ones_75[0])
+             {
+diff --git a/IGC/BiFModule/Implementation/atomics.cl b/IGC/BiFModule/Implementation/atomics.cl
+index a409830d6..ecd93f738 100644
+--- a/IGC/BiFModule/Implementation/atomics.cl
++++ b/IGC/BiFModule/Implementation/atomics.cl
+@@ -138,7 +138,7 @@ extern __constant int __UseNativeFP64GlobalAtomicAdd;
+ // will still go down the coherant pipeline.  The 2 L3$ pipes do not guarentee order of operations between
+ // themselves.
+ 
+-// Since we dont have specialized atomic load/store HDC message we're using atomic_or( a, 0x0 ) to emulate
++// Since we don't have specialized atomic load/store HDC message we're using atomic_or( a, 0x0 ) to emulate
+ // an atomic load since it does not modify the in memory value and returns the 'old' value. atomic store
+ // can be implemented with an atomic_exchance with the return value ignored.
+ 
+diff --git a/IGC/BiFModule/Implementation/barrier.cl b/IGC/BiFModule/Implementation/barrier.cl
+index ed5d2723a..5591f158f 100644
+--- a/IGC/BiFModule/Implementation/barrier.cl
++++ b/IGC/BiFModule/Implementation/barrier.cl
+@@ -121,7 +121,7 @@ void SPIRV_OVERLOADABLE SPIRV_BUILTIN(ControlBarrier, _i32_i32_i32, )(int Execut
+     }
+     else  if( Execution == Subgroup )
+     {
+-        // nothing will be emited but we need to prevent optimization splitting control flow
++        // nothing will be emitted but we need to prevent optimization splitting control flow
+         __builtin_IB_sub_group_barrier();
+     }
+ }
+diff --git a/IGC/BiFModule/Implementation/group.cl b/IGC/BiFModule/Implementation/group.cl
+index 54a00f4de..fe170fab4 100644
+--- a/IGC/BiFModule/Implementation/group.cl
++++ b/IGC/BiFModule/Implementation/group.cl
+@@ -968,7 +968,7 @@ bool SPIRV_OVERLOADABLE SPIRV_BUILTIN(GroupAll, _i32_i1, )(int Execution, bool P
+         *tmp = 1;
+         SPIRV_BUILTIN(ControlBarrier, _i32_i32_i32, )(Execution, 0, AcquireRelease | WorkgroupMemory); // Wait for tmp to be initialized
+         if(Predicate == 0)
+-            *tmp = 0; // intentional data race here, as we do not care for the value itself, rather than the fact it was overriden
++            *tmp = 0; // intentional data race here, as we do not care for the value itself, rather than the fact it was overridden
+         SPIRV_BUILTIN(ControlBarrier, _i32_i32_i32, )(Execution, 0, AcquireRelease | WorkgroupMemory); // Wait for threads
+         return *tmp; // Return true if none of them failed the test
+     }
+@@ -990,7 +990,7 @@ bool SPIRV_OVERLOADABLE SPIRV_BUILTIN(GroupAny, _i32_i1, )(int Execution, bool P
+         *tmp = 0;
+         SPIRV_BUILTIN(ControlBarrier, _i32_i32_i32, )(Execution, 0, AcquireRelease | WorkgroupMemory); // Wait for tmp to be initialized
+         if(Predicate == 1)
+-            *tmp = 1; // intentional data race here, as we do not care for the value itself, rather than the fact it was overriden
++            *tmp = 1; // intentional data race here, as we do not care for the value itself, rather than the fact it was overridden
+         SPIRV_BUILTIN(ControlBarrier, _i32_i32_i32, )(Execution, 0, AcquireRelease | WorkgroupMemory);
+         return *tmp; // Return true if any of them passed the test
+     }
+diff --git a/IGC/Compiler/CISACodeGen/CISABuilder.cpp b/IGC/Compiler/CISACodeGen/CISABuilder.cpp
+index e8c939967..08bc06195 100644
+--- a/IGC/Compiler/CISACodeGen/CISABuilder.cpp
++++ b/IGC/Compiler/CISACodeGen/CISABuilder.cpp
+@@ -5046,7 +5046,7 @@ namespace IGC
+         llvm::SmallVector<std::unique_ptr< char, std::function<void(char*)>>, 10> params2;
+         if (!m_hasInlineAsm)
+         {
+-            // Asm text writer mode doesnt need dump params
++            // Asm text writer mode doesn't need dump params
+             InitBuildParams(params2);
+             for (size_t i = 0; i < params2.size(); i++)
+             {
+@@ -5878,7 +5878,7 @@ namespace IGC
+                     visaAsmName = std::string(visaAsmNameVector.begin(), visaAsmNameVector.end());
+ 
+                     auto result = vAsmTextBuilder->ParseVISAText(tmpVisaFile.c_str());
+-                    appendToShaderOverrideLogFile(visaAsmName, "OVERRIDEN: ");
++                    appendToShaderOverrideLogFile(visaAsmName, "OVERRIDDEN: ");
+                     vISAAsmParseError = (result != 0);
+                     if (vISAAsmParseError) {
+                         IGC_ASSERT_MESSAGE(0, "visaasm file parse error!");
+diff --git a/IGC/Compiler/CISACodeGen/CVariable.hpp b/IGC/Compiler/CISACodeGen/CVariable.hpp
+index 6dc1b7e9c..9139e4103 100644
+--- a/IGC/Compiler/CISACodeGen/CVariable.hpp
++++ b/IGC/Compiler/CISACodeGen/CVariable.hpp
+@@ -121,7 +121,7 @@ namespace IGC {
+         static const CName NONE;
+     };
+ 
+-    // As uniform is splitted into multiple ones, CVariable ctor's boolean uniform
++    // As uniform is split into multiple ones, CVariable ctor's boolean uniform
+     // arg need changing. To avoid large changes, UniformArgWrap is used to allow
+     // both bool (existing one) or the newer WIBaseClass::WIDependancy to pass
+     // into CVariable's ctor.  When boolean is no longer passed in, this wrap class
+diff --git a/IGC/Compiler/CISACodeGen/ComputeShaderBase.cpp b/IGC/Compiler/CISACodeGen/ComputeShaderBase.cpp
+index 968a7eb69..baef2e916 100644
+--- a/IGC/Compiler/CISACodeGen/ComputeShaderBase.cpp
++++ b/IGC/Compiler/CISACodeGen/ComputeShaderBase.cpp
+@@ -180,7 +180,7 @@ namespace IGC
+             m_walkOrder = *order;
+             m_enableHWGenerateLID = true;
+         } else {
+-            // Is 2D or 3D dispatch and isnt pow2, so the HW doesn't support it
++            // Is 2D or 3D dispatch and isn't pow2, so the HW doesn't support it
+             m_enableHWGenerateLID = false;
+             m_ThreadIDLayout = ThreadIDLayout::X;
+             m_walkOrder = WO_XYZ;
+diff --git a/IGC/Compiler/CISACodeGen/DebugInfo.cpp b/IGC/Compiler/CISACodeGen/DebugInfo.cpp
+index 1f695526f..53c90fe74 100644
+--- a/IGC/Compiler/CISACodeGen/DebugInfo.cpp
++++ b/IGC/Compiler/CISACodeGen/DebugInfo.cpp
+@@ -377,7 +377,7 @@ void DebugInfoData::markOutputVar(CShader* pShader, IDebugEmitter* pDebugEmitter
+         // So that finalizer can extend their liveness to end of the program.
+         // This will help debugger examine their values anywhere in the code till they
+         // are in scope. However, emit "Output" attribute when -g and -cl-opt-disable
+-        // are both passed -g by itself shouldnt alter generated code.
++        // are both passed -g by itself shouldn't alter generated code.
+         if (static_cast<OpenCLProgramContext*>(pShader->GetContext())->m_InternalOptions.KernelDebugEnable ||
+             pShader->GetContext()->getModuleMetaData()->compOpt.OptDisable)
+         {
+@@ -525,7 +525,7 @@ void DebugInfoData::markOutputVars(const llvm::Instruction* pInst)
+             if (m_pShader->GetContext()->getModuleMetaData()->compOpt.OptDisable)
+             {
+                 // Emit "Output" attribute only when -g and -cl-opt-disable are both passed
+-                // -g by itself shouldnt alter generated code
++                // -g by itself shouldn't alter generated code
+                 m_pShader->GetEncoder().GetVISAKernel()->AddAttributeToVar(pVar->visaGenVariable[0], "Output", 0, nullptr);
+                 if (m_pShader->m_dispatchSize == SIMDMode::SIMD32 && pVar->visaGenVariable[1])
+                 {
+diff --git a/IGC/Compiler/CISACodeGen/EmitVISAPass.cpp b/IGC/Compiler/CISACodeGen/EmitVISAPass.cpp
+index 357a687fd..f17889dc1 100644
+--- a/IGC/Compiler/CISACodeGen/EmitVISAPass.cpp
++++ b/IGC/Compiler/CISACodeGen/EmitVISAPass.cpp
+@@ -4364,7 +4364,7 @@ void EmitPass::emitLdInstruction(llvm::Instruction* inst)
+ 
+     }
+ 
+-    //When sampler output is 16 bit float, hardware doesnt pack the output in SIMD8 mode.
++    //When sampler output is 16 bit float, hardware doesn't pack the output in SIMD8 mode.
+     //Hence the movs to handle this layout in SIMD8 mode
+     bool needPacking = false;
+     CVariable* dst = m_destination;
+@@ -6675,7 +6675,7 @@ void EmitPass::emitSampleInstruction(SampleIntrinsic* inst)
+     bool hasMaskResponse = writeMask.isSet(4);
+ 
+     CVariable* dst = m_destination;
+-    //When sampler output is 16 bit float, hardware doesnt pack the output in SIMD8 mode.
++    //When sampler output is 16 bit float, hardware doesn't pack the output in SIMD8 mode.
+     //Hence the movs to handle this layout in SIMD8 mode
+     bool simd8HFRet = isHalfGRFReturn(m_destination, m_SimdMode);
+ 
+@@ -6975,7 +6975,7 @@ void EmitPass::emitGather4Instruction(SamplerGatherIntrinsic* inst)
+     }
+ 
+     CVariable* dst = m_destination;
+-    //When sampler output is 16 bit float, hardware doesnt pack the output in SIMD8 mode.
++    //When sampler output is 16 bit float, hardware doesn't pack the output in SIMD8 mode.
+     //Hence the movs to handle this layout in SIMD8 mode
+     bool simd8HFRet = isHalfGRFReturn(m_destination, m_SimdMode);
+     if (simd8HFRet)
+@@ -7064,7 +7064,7 @@ void EmitPass::emitLdmsInstruction(llvm::Instruction* inst)
+     }
+ 
+     CVariable* dst = m_destination;
+-    //When sampler output is 16 bit float, hardware doesnt pack the output in SIMD8 mode.
++    //When sampler output is 16 bit float, hardware doesn't pack the output in SIMD8 mode.
+     //Hence the movs to handle this layout in SIMD8 mode
+     bool simd8HFRet = isHalfGRFReturn(m_destination, m_SimdMode);
+     if (simd8HFRet)
+@@ -13485,7 +13485,7 @@ void EmitPass::emitMemoryFence(llvm::Instruction* inst)
+ 
+     // Check whether we know this is a local fence. If we do, don't emit fence for a BDW+SKL/BXT only.
+     if (!Global_Mem_Fence) {
+-        if (ctx->platform.localMemFenceSupress()) {
++        if (ctx->platform.localMemFenceSuppress()) {
+             EmitFence = false;
+         }
+     }
+@@ -13501,7 +13501,7 @@ void EmitPass::emitMemoryFence(llvm::Instruction* inst)
+     }
+     if (L3_Flush_RW_Data)
+     {
+-        // dont flush L1 if L3 is also being flushed
++        // don't flush L1 if L3 is also being flushed
+         L1_Invalidate = false;
+     }
+ 
+@@ -14552,7 +14552,7 @@ void EmitPass::emitVectorBitCast(llvm::BitCastInst* BCI)
+             // dst operands, therefore, they need splitting, that is
+             //   mov (16) Y_alias.0<2> V0(0,0)<16;16,1>
+             //   mov (16) Y_alias.1<2> V1(0,0)<16;16,1>
+-            // should be splitted into the following:
++            // should be split into the following:
+             //   mov (8, Q1) Y_alias.0<2>   V0(0,0)<8;8,1>
+             //   mov (8, Q2) Y_alias.16<2>  V0(1,0)<8;8,1>
+             //   mov (8, Q1) Y_alias.1<2>   V1(0,0)<8;8,1>
+@@ -15178,7 +15178,7 @@ void EmitPass::emitVectorLoad(LoadInst* inst, Value* offset, ConstantInt* immOff
+                 else if (!iSTD::IsPowerOfTwo(size))
+                 {
+                     // llvm optimizer converts vector load <i64 x 4> in to <i64 x 3> if
+-                    // last element isnt used. Recompute size to next higher power of 2.
++                    // last element isn't used. Recompute size to next higher power of 2.
+                     size = (uint)std::pow(2, std::ceil(std::log2(size)));
+                 }
+                 newDest = m_currShader->GetNewVariable(size / loadDest->GetElemSize(), loadDest->GetType(), EALIGN_GRF, true, CName::NONE);
+diff --git a/IGC/Compiler/CISACodeGen/MemOpt.cpp b/IGC/Compiler/CISACodeGen/MemOpt.cpp
+index a1afdab72..9a124cc2a 100644
+--- a/IGC/Compiler/CISACodeGen/MemOpt.cpp
++++ b/IGC/Compiler/CISACodeGen/MemOpt.cpp
+@@ -629,7 +629,7 @@ bool MemOpt::mergeLoad(LoadInst* LeadingLoad,
+         if (!NextLoad->isSimple())
+             break;
+ 
+-        // If we get an ordered load (such as a cst_seq atomic load/store) dont
++        // If we get an ordered load (such as a cst_seq atomic load/store) don't
+         // merge.
+         if (!NextLoad->isUnordered())
+             break;
+@@ -963,7 +963,7 @@ bool MemOpt::mergeStore(StoreInst* LeadingStore,
+         if (!NextStore->isSimple())
+             break;
+ 
+-        // If we get an ordered store (such as a cst_seq atomic load/store) dont
++        // If we get an ordered store (such as a cst_seq atomic load/store) don't
+         // merge.
+         if (!NextStore->isUnordered())
+             break;
+diff --git a/IGC/Compiler/CISACodeGen/PatternMatchPass.cpp b/IGC/Compiler/CISACodeGen/PatternMatchPass.cpp
+index c71b4cd02..d5b5784db 100644
+--- a/IGC/Compiler/CISACodeGen/PatternMatchPass.cpp
++++ b/IGC/Compiler/CISACodeGen/PatternMatchPass.cpp
+@@ -1308,7 +1308,7 @@ namespace IGC
+ 
+             if (IGCMetrics::IGCMetric::isMetricFuncCall(&I))
+             {
+-                // dont do anything with metrics calls
++                // don't do anything with metrics calls
+                 return;
+             }
+ 
+@@ -5075,7 +5075,7 @@ namespace IGC
+                 if (llvm::ConstantInt * simDOffSetInst = llvm::dyn_cast<llvm::ConstantInt>(binaryInst->getOperand(1)))
+                 {
+                     uint shiftFactor = int_cast<uint>(simDOffSetInst->getZExtValue());
+-                    //Check to make sure we dont end up with an invalid Vertical Stride.
++                    //Check to make sure we don't end up with an invalid Vertical Stride.
+                     //Only 1, 2, 4, 8, 16 are supported.
+                     if (shiftFactor <= 4)
+                         verticalStride = (1U << shiftFactor);
+diff --git a/IGC/Compiler/CISACodeGen/Platform.hpp b/IGC/Compiler/CISACodeGen/Platform.hpp
+index b6076b4ae..317cc899c 100644
+--- a/IGC/Compiler/CISACodeGen/Platform.hpp
++++ b/IGC/Compiler/CISACodeGen/Platform.hpp
+@@ -109,7 +109,7 @@ bool supportsBindlessSamplers() const { return m_platformInfo.eRenderCoreFamily
+ 
+ bool SupportSurfaceInfoMessage() const { return m_platformInfo.eRenderCoreFamily >= IGFX_GEN9_CORE; }
+ bool SupportHDCUnormFormats() const { return m_platformInfo.eRenderCoreFamily >= IGFX_GEN10_CORE; }
+-    bool localMemFenceSupress() const {
++    bool localMemFenceSuppress() const {
+         return m_platformInfo.eRenderCoreFamily <= IGFX_GEN9_CORE ||
+             IGC_IS_FLAG_ENABLED(DisbleLocalFences);
+     }
+diff --git a/IGC/Compiler/CISACodeGen/PromoteInt8Type.cpp b/IGC/Compiler/CISACodeGen/PromoteInt8Type.cpp
+index 5b0302fdd..c4d670340 100644
+--- a/IGC/Compiler/CISACodeGen/PromoteInt8Type.cpp
++++ b/IGC/Compiler/CISACodeGen/PromoteInt8Type.cpp
+@@ -353,7 +353,7 @@ void PromoteInt8Type::collectCandidates()
+             ValueInfo* valinfo = *LI;
+             Value* V = valinfo->Val;
+             Instruction* I = dyn_cast<Instruction>(V);
+-            IGC_ASSERT_MESSAGE(nullptr != I, "worklist entry must be an intruction!");
++            IGC_ASSERT_MESSAGE(nullptr != I, "worklist entry must be an instruction!");
+             if (ExtractElementInst* EEI = dyn_cast<ExtractElementInst>(I))
+             {
+                 Value* VOprd = EEI->getVectorOperand();
+diff --git a/IGC/Compiler/CISACodeGen/VectorPreProcess.cpp b/IGC/Compiler/CISACodeGen/VectorPreProcess.cpp
+index fdb990055..158a81e1e 100644
+--- a/IGC/Compiler/CISACodeGen/VectorPreProcess.cpp
++++ b/IGC/Compiler/CISACodeGen/VectorPreProcess.cpp
+@@ -562,7 +562,7 @@ void VectorPreProcess::createSplitVectorTypes(
+     N = N % E;
+     E = E / 2;  // next split size
+ 
+-    // 2. The remaining elts are splitted if not power of 2 until N <= 4.
++    // 2. The remaining elts are split if not power of 2 until N <= 4.
+     while (N > 4)
+     {
+         IGC_ASSERT(E);
+@@ -718,7 +718,7 @@ bool VectorPreProcess::splitStore(
+     ValVector& svals = vecToSubVec[StoredVal][splitSize];
+     if (svals.size() == 0)
+     {
+-        // Need to create splitted values.
++        // Need to create split values.
+         Instruction* insertBeforeInst = nullptr;
+         ValVector scalars(nelts, nullptr);
+         getOrGenScalarValues(*SI->getParent()->getParent(),
+@@ -993,7 +993,7 @@ bool VectorPreProcess::splitLoadStore(
+     // Do splitting
+ 
+     // If it is a store and its stored value is from a load that
+-    // has not been splitted yet, then splitting the load first
++    // has not been split yet, then splitting the load first
+     // so that the stored value will be directly from loaded values
+     // without adding insert/extract instructions.
+     Optional<AbstractLoadInst> aALI = (ASI && !isInMap) ? AbstractLoadInst::get(V) : ALI;
+@@ -1814,7 +1814,7 @@ bool VectorPreProcess::runOnFunction(Function& F)
+             }
+         }
+ 
+-        // Now, do post-processing for the splitted loads
++        // Now, do post-processing for the split loads
+         for (uint32_t i = 0; i < m_Temps.size(); ++i)
+         {
+             Value* V = m_Temps[i];
+diff --git a/IGC/Compiler/CISACodeGen/VectorProcess.cpp b/IGC/Compiler/CISACodeGen/VectorProcess.cpp
+index 8eacb5cf3..c2065f62c 100644
+--- a/IGC/Compiler/CISACodeGen/VectorProcess.cpp
++++ b/IGC/Compiler/CISACodeGen/VectorProcess.cpp
+@@ -94,7 +94,7 @@ using IGCLLVM::FixedVectorType;
+ // ** Note, we guarantee that the size of a vector is either 1, 2 bytes,
+ // ** or multiple of DW at this point. This is guaranteed by VectorPreProcess
+ // ** (as <3 x i8> cannot be mapped to a single send message, has to be
+-// ** splitted. We split <3 x i8> in VectorPreProcess so that we don't have
++// ** split. We split <3 x i8> in VectorPreProcess so that we don't have
+ // ** to worry about splitting vector here).
+ //
+ // Given a vector < n x T>, the type of load/store is calculated "conceptually"
+diff --git a/IGC/Compiler/CISACodeGen/helper.cpp b/IGC/Compiler/CISACodeGen/helper.cpp
+index dceee9c8c..b5e9c9cb5 100644
+--- a/IGC/Compiler/CISACodeGen/helper.cpp
++++ b/IGC/Compiler/CISACodeGen/helper.cpp
+@@ -1310,7 +1310,7 @@ namespace IGC
+                 bufType = DecodeAS4GFXResource(as, directIndexing, textureIdx);
+                 if (bufType == UAV)
+                 {
+-                    // dont do any clustering on read/write images
++                    // don't do any clustering on read/write images
+                     textureIdx = -1;
+                 }
+             }
+@@ -2290,7 +2290,7 @@ namespace IGC
+     //    return ret;
+     // }
+     //
+-    // This implementation relies completly on native llvm functions
++    // This implementation relies completely on native llvm functions
+     //
+     //
+     //
+diff --git a/IGC/Compiler/CodeGenPublicEnums.h b/IGC/Compiler/CodeGenPublicEnums.h
+index 0721d973f..4443fcc0e 100644
+--- a/IGC/Compiler/CodeGenPublicEnums.h
++++ b/IGC/Compiler/CodeGenPublicEnums.h
+@@ -261,7 +261,7 @@ namespace IGC
+         ROUND_TO_NEGATIVE,
+         ROUND_TO_ZERO,
+ 
+-        ROUND_TO_ANY   // dont care
++        ROUND_TO_ANY   // don't care
+     };
+ 
+     enum EPreemptionMode
+diff --git a/IGC/Compiler/CustomLoopOpt.hpp b/IGC/Compiler/CustomLoopOpt.hpp
+index 1767c478a..642d2db62 100644
+--- a/IGC/Compiler/CustomLoopOpt.hpp
++++ b/IGC/Compiler/CustomLoopOpt.hpp
+@@ -27,7 +27,7 @@ namespace IGC
+     ///////////////////////////////////////////////////////////////////////////
+     /// Enforce a single latch for every loop header. This needs to be ran before
+     /// LLVM Loop canonicalization pass as LLVM loop simplification pass sometimes
+-    /// decides to spilt the loop. Spliting the loop may cause functional issues
++    /// decides to split the loop. Splitting the loop may cause functional issues
+     /// in case of barriers being used and it may cause extra SIMD divergence causing
+     /// performance degradation
+     llvm::FunctionPass* createLoopCanonicalization();
+diff --git a/IGC/Compiler/CustomSafeOptPass.cpp b/IGC/Compiler/CustomSafeOptPass.cpp
+index af5cce28b..b86e86fd8 100644
+--- a/IGC/Compiler/CustomSafeOptPass.cpp
++++ b/IGC/Compiler/CustomSafeOptPass.cpp
+@@ -3011,7 +3011,7 @@ void GenSpecificPattern::visitBinaryOperator(BinaryOperator& I)
+             %ee2 = extractelement <2 x i16> %temp, i32 1
+             %132 = sext i8 %ee1 to i32
+             %133 = sext i8 %ee2 to i32
+-            Which will end up as regioning instead of 2 isntr.
++            Which will end up as regioning instead of 2 instr.
+         */
+         using namespace llvm::PatternMatch;
+ 
+@@ -6034,8 +6034,8 @@ namespace {
+         StringRef getPassName() const override { return "InsertBranchOpt"; }
+ 
+         bool runOnFunction(Function& F) override;
+-        void atomicSpiltOpt(Function& F);
+-        void ThreeWayLoadSpiltOpt(Function& F);
++        void atomicSplitOpt(Function& F);
++        void ThreeWayLoadSplitOpt(Function& F);
+         void findOptCases(SelectInst* I);
+         bool HasSrcFromEE(Instruction* I, uint selNum, Instruction*& loadInst);
+         virtual void getAnalysisUsage(llvm::AnalysisUsage& AU) const override
+@@ -6438,7 +6438,7 @@ void InsertBranchOpt::CreateBranchBlock(Function& F, Value* cmpI, loadGroup& lg,
+     }
+ }
+ 
+-void InsertBranchOpt::ThreeWayLoadSpiltOpt(Function& F)
++void InsertBranchOpt::ThreeWayLoadSplitOpt(Function& F)
+ {
+     // For a pattern with 3 sample / load and only use one of them based on some
+     // condition, change it to use branches to only do the one sample / load that matters.
+@@ -6520,7 +6520,7 @@ void InsertBranchOpt::ThreeWayLoadSpiltOpt(Function& F)
+     }
+ }
+ 
+-void InsertBranchOpt::atomicSpiltOpt(Function& F)
++void InsertBranchOpt::atomicSplitOpt(Function& F)
+ {
+     std::vector<GenIntrinsicInst*>atomicSplit;
+     for (auto BI = F.begin(), BE = F.end(); BI != BE; BI++)
+@@ -6844,12 +6844,12 @@ bool InsertBranchOpt::runOnFunction(Function& F)
+     pContext = getAnalysis<CodeGenContextWrapper>().getCodeGenContext();
+     if (IGC_IS_FLAG_ENABLED(EnableAtomicBranch) || pContext->getModuleMetaData()->csInfo.atomicBranch)
+     {
+-        atomicSpiltOpt(F);
++        atomicSplitOpt(F);
+     }
+ 
+-    if (IGC_IS_FLAG_ENABLED(EnableThreeWayLoadSpiltOpt))
++    if (IGC_IS_FLAG_ENABLED(EnableThreeWayLoadSplitOpt))
+     {
+-        ThreeWayLoadSpiltOpt(F);
++        ThreeWayLoadSplitOpt(F);
+     }
+ 
+     typedWriteZeroStoreCheck(F);
+diff --git a/IGC/Compiler/DebugInfo/ScalarVISAModule.cpp b/IGC/Compiler/DebugInfo/ScalarVISAModule.cpp
+index fe617427a..90496ad31 100644
+--- a/IGC/Compiler/DebugInfo/ScalarVISAModule.cpp
++++ b/IGC/Compiler/DebugInfo/ScalarVISAModule.cpp
+@@ -132,7 +132,7 @@ int ScalarVisaModule::getFPReg() const {
+ llvm::StringRef ScalarVisaModule::GetVISAFuncName() const
+ {
+     // when igc.device.enqueue metadata is used, function name
+-    // doesnt match between llvm::Function and VISA. this
++    // doesn't match between llvm::Function and VISA. this
+     // lambda checks whether device enqueue is used and if so,
+     // it returns function name that VISA uses. this is required
+     // to lookup symbol table of the function.
+diff --git a/IGC/Compiler/GenTTI.cpp b/IGC/Compiler/GenTTI.cpp
+index 09988f9e6..6baea476a 100644
+--- a/IGC/Compiler/GenTTI.cpp
++++ b/IGC/Compiler/GenTTI.cpp
+@@ -134,7 +134,7 @@ namespace llvm {
+                     auto O = U->getOperand(i);
+                     if (auto P = dyn_cast<PHINode>(O)) {
+                         if (!L->isAuxiliaryInductionVariable(*P, SE)) {
+-                            // Stop at non-auxilary IV
++                            // Stop at non-auxiliary IV
+                             return false;
+                         }
+                     }
+diff --git a/IGC/Compiler/Optimizer/IGCInstCombiner/4.0/InstCombineAddSub.cpp b/IGC/Compiler/Optimizer/IGCInstCombiner/4.0/InstCombineAddSub.cpp
+index e0b60d569..ed8b9a2b6 100644
+--- a/IGC/Compiler/Optimizer/IGCInstCombiner/4.0/InstCombineAddSub.cpp
++++ b/IGC/Compiler/Optimizer/IGCInstCombiner/4.0/InstCombineAddSub.cpp
+@@ -152,7 +152,7 @@ namespace {
+     static unsigned drillValueDownOneStep(Value* V, FAddend &A0, FAddend &A1);
+ 
+     /// Similar to FAddend::drillDownOneStep() except that the value being
+-    /// splitted is the addend itself.
++    /// split is the addend itself.
+     unsigned drillAddendDownOneStep(FAddend &Addend0, FAddend &Addend1) const;
+ 
+     void operator+=(const FAddend &T) {
+@@ -550,7 +550,7 @@ Value *FAddCombine::simplify(Instruction *I) {
+ 
+   if (OpndNum != 2) {
+     // The input instruction is : "I=0.0 +/- V". If the "V" were able to be
+-    // splitted into two addends, say "V = X - Y", the instruction would have
++    // split into two addends, say "V = X - Y", the instruction would have
+     // been optimized into "I = Y - X" in the previous steps.
+     //
+     const FAddendCoef &CE = Opnd0.getCoef();
+diff --git a/IGC/Compiler/Optimizer/IGCInstCombiner/7.0/InstCombineAddSub.cpp b/IGC/Compiler/Optimizer/IGCInstCombiner/7.0/InstCombineAddSub.cpp
+index 1ccc27122..e6a736570 100644
+--- a/IGC/Compiler/Optimizer/IGCInstCombiner/7.0/InstCombineAddSub.cpp
++++ b/IGC/Compiler/Optimizer/IGCInstCombiner/7.0/InstCombineAddSub.cpp
+@@ -174,7 +174,7 @@ namespace {
+         static unsigned drillValueDownOneStep(Value* V, FAddend& A0, FAddend& A1);
+ 
+         /// Similar to FAddend::drillDownOneStep() except that the value being
+-        /// splitted is the addend itself.
++        /// split is the addend itself.
+         unsigned drillAddendDownOneStep(FAddend& Addend0, FAddend& Addend1) const;
+ 
+     private:
+@@ -569,7 +569,7 @@ Value* FAddCombine::simplify(Instruction* I) {
+ 
+     if (OpndNum != 2) {
+         // The input instruction is : "I=0.0 +/- V". If the "V" were able to be
+-        // splitted into two addends, say "V = X - Y", the instruction would have
++        // split into two addends, say "V = X - Y", the instruction would have
+         // been optimized into "I = Y - X" in the previous steps.
+         //
+         const FAddendCoef& CE = Opnd0.getCoef();
+diff --git a/IGC/Compiler/Optimizer/OCLBIUtils.cpp b/IGC/Compiler/Optimizer/OCLBIUtils.cpp
+index 3bf5cab11..5e686cdaf 100644
+--- a/IGC/Compiler/Optimizer/OCLBIUtils.cpp
++++ b/IGC/Compiler/Optimizer/OCLBIUtils.cpp
+@@ -243,7 +243,7 @@ void CImagesBI::createGetBufferPtr()
+ 
+     //%base_ptr = call float* @llvm.GenISA.GetBufferPtr(i32 %bufIdx, i32 %type)
+ 
+-    // preparing the argumant list for the function
++    // preparing the argument list for the function
+     llvm::SmallVector<Value*, 2> getBufferPtrArgs;
+     getBufferPtrArgs.push_back(imageIndex);
+     getBufferPtrArgs.push_back(ConstantInt::get(m_pIntType, bufType));
+diff --git a/IGC/Compiler/Optimizer/OCLBIUtils.h b/IGC/Compiler/Optimizer/OCLBIUtils.h
+index ffca6f40b..68c4168e7 100644
+--- a/IGC/Compiler/Optimizer/OCLBIUtils.h
++++ b/IGC/Compiler/Optimizer/OCLBIUtils.h
+@@ -167,12 +167,12 @@ namespace IGC
+         class CImagesUtils
+         {
+         public:
+-            /// @brief  find the BTI of the image argumant
+-            /// @param  paramIndex  the index of the image paramtere in the call isntruciton
++            /// @brief  find the BTI of the image argument
++            /// @param  paramIndex  the index of the image paramter in the call instruction
+             /// @returns  the image index
+             static llvm::ConstantInt* getImageIndex(ParamMap* pParamMap, llvm::CallInst* pCallInst, unsigned int paramIndex, llvm::Argument*& imageParam);
+ 
+-            /// @brief  find the type (UAV/RESOURCE) of the image argumant
++            /// @brief  find the type (UAV/RESOURCE) of the image argument
+             /// @returns  the image type
+             static BufferType getImageType(ParamMap* pParamMap, llvm::CallInst* pCallInst, unsigned int paramIndex);
+ 
+@@ -185,7 +185,7 @@ namespace IGC
+             m_pParamMap(paramMap), m_pInlineMap(inlineMap), m_pNextSampler(nextSampler), m_dim(Dim),
+             CoordX(nullptr), CoordY(nullptr), CoordZ(nullptr), m_IncorrectBti(false) {}
+ 
+-        /// @brief  push 3 zeros offset to the function argumant list
++        /// @brief  push 3 zeros offset to the function argument list
+         void prepareZeroOffsets(void);
+ 
+         /// @brief  initilaize CoordX/Y/Z with the given coordinates.
+diff --git a/IGC/Compiler/Optimizer/OpenCLPasses/AggregateArguments/AggregateArguments.cpp b/IGC/Compiler/Optimizer/OpenCLPasses/AggregateArguments/AggregateArguments.cpp
+index 6e6de0736..4de7dd74f 100644
+--- a/IGC/Compiler/Optimizer/OpenCLPasses/AggregateArguments/AggregateArguments.cpp
++++ b/IGC/Compiler/Optimizer/OpenCLPasses/AggregateArguments/AggregateArguments.cpp
+@@ -240,7 +240,7 @@ bool ResolveAggregateArguments::runOnFunction(Function& F)
+         StructType* structType = cast<StructType>(arg->getType()->getPointerElementType());
+ 
+         // LLVM assumes the caller has create an alloca and pushed the contents
+-        // of the struct on the stack.  Since we dont have a caller, create
++        // of the struct on the stack.  Since we don't have a caller, create
+         // the alloca here.
+         std::string allocaName = std::string(arg->getName()) + "_alloca";
+         llvm::AllocaInst* base = irBuilder.CreateAlloca(structType, 0, allocaName);
+diff --git a/IGC/Compiler/Optimizer/OpenCLPasses/ImageFuncs/ImageFuncResolution.hpp b/IGC/Compiler/Optimizer/OpenCLPasses/ImageFuncs/ImageFuncResolution.hpp
+index 8827d8f8b..a3cf60a57 100644
+--- a/IGC/Compiler/Optimizer/OpenCLPasses/ImageFuncs/ImageFuncResolution.hpp
++++ b/IGC/Compiler/Optimizer/OpenCLPasses/ImageFuncs/ImageFuncResolution.hpp
+@@ -83,19 +83,19 @@ namespace IGC
+         llvm::Value* getImageNumMipLevels(llvm::CallInst& CI);
+ 
+         /// @brief  Resolves get_image_channel_data_type(image).
+-        ///         Adds the approtiate sequence of code before the given call isntruction
++        ///         Adds the approtiate sequence of code before the given call instruction
+         /// @param  CI The call instruction.
+         /// @return A value representing the image channel data type
+         llvm::Value* getImageChannelDataType(llvm::CallInst& CI);
+ 
+         /// @brief  Resolves get_image_channel_order(image).
+-        ///         Adds the approtiate sequence of code before the given call isntruction
++        ///         Adds the approtiate sequence of code before the given call instruction
+         /// @param  CI The call instruction.
+         /// @return A value representing the image order
+         llvm::Value* getImageChannelOrder(llvm::CallInst& CI);
+ 
+         /// @brief  Resolves get_image_array_size(image_array).
+-        ///         Adds the approtiate sequence of code before the given call isntruction
++        ///         Adds the approtiate sequence of code before the given call instruction
+         /// @param  CI The call instruction.
+         /// @return A value representing the image array size
+         llvm::Value* getImageArraySize(llvm::CallInst& CI);
+@@ -107,21 +107,21 @@ namespace IGC
+         llvm::Value* getImageNumSamples(llvm::CallInst& CI);
+ 
+         /// @brief  Resolves the pseudo-builtin get_sampler_address_mode(sampler_t).
+-        ///         Adds the approtiate sequence of code before the given call isntruction
++        ///         Adds the approtiate sequence of code before the given call instruction
+         /// @param  CI The call instruction.
+         /// @return A value representing the sampler address mode, which may either be
+         ///         a ConstantInt or an Argument
+         llvm::Value* getSamplerAddressMode(llvm::CallInst& CI);
+ 
+         /// @brief  Resolves the pseudo-builtin get_sampler_normalized_coords(sampler_t).
+-        ///         Adds the approtiate sequence of code before the given call isntruction
++        ///         Adds the approtiate sequence of code before the given call instruction
+         /// @param  CI The call instruction.
+         /// @return A value representing the sampler normalized coords mode, which may either be
+         ///         a ConstantInt or an Argument
+         llvm::Value* getSamplerNormalizedCoords(llvm::CallInst& CI);
+ 
+         /// @brief  Resolves the pseudo-builtin get_sampler_snap_wa_reqd(sampler_t).
+-        ///         Adds the approtiate sequence of code before the given call isntruction
++        ///         Adds the approtiate sequence of code before the given call instruction
+         /// @param  CI The call instruction.
+         /// @return A value representing whether the snap workaround is required for the sample
+         ///         which may either be a ConstantInt or an Argument
+diff --git a/IGC/Compiler/Optimizer/OpenCLPasses/LSCFuncs/LSCFuncsResolution.cpp b/IGC/Compiler/Optimizer/OpenCLPasses/LSCFuncs/LSCFuncsResolution.cpp
+index a221afea8..1d12803db 100644
+--- a/IGC/Compiler/Optimizer/OpenCLPasses/LSCFuncs/LSCFuncsResolution.cpp
++++ b/IGC/Compiler/Optimizer/OpenCLPasses/LSCFuncs/LSCFuncsResolution.cpp
+@@ -680,7 +680,7 @@ LscTypeInfo LSCFuncsResolution::decodeTypeInfoFromName()
+ AtomicOp LSCFuncsResolution::decodeAtomicOpFromName()
+ {
+     static const SymbolMapping symbols[42] {
+-        // FP 64 (local not suported)
++        // FP 64 (local not supported)
+         {"_add_global_double", EATOMIC_FADD64},
+         {"_sub_global_double", EATOMIC_FSUB64},
+         // FP 32
+diff --git a/IGC/Compiler/Optimizer/OpenCLPasses/NamedBarriers/NamedBarriersResolution.cpp b/IGC/Compiler/Optimizer/OpenCLPasses/NamedBarriers/NamedBarriersResolution.cpp
+index d60024e40..833ff15e7 100644
+--- a/IGC/Compiler/Optimizer/OpenCLPasses/NamedBarriers/NamedBarriersResolution.cpp
++++ b/IGC/Compiler/Optimizer/OpenCLPasses/NamedBarriers/NamedBarriersResolution.cpp
+@@ -131,7 +131,7 @@ bool NamedBarriersResolution::runOnModule(Module& M)
+         // Remove not needed wrapper for Init NBarrier built-in
+         for (const auto& [barrierStruct, barrierData] : m_MapInitToID)
+         {
+-            // We dont need any more the store instruction for nbarrier struct
++            // We don't need any more the store instruction for nbarrier struct
+             for (auto user : barrierData.threadGroupNBarrierInit->users())
+             {
+                 if (StoreInst* storeInst = dyn_cast<StoreInst>(user))
+diff --git a/IGC/Compiler/Optimizer/OpenCLPasses/OpenCLPrintf/OpenCLPrintfResolution.cpp b/IGC/Compiler/Optimizer/OpenCLPasses/OpenCLPrintf/OpenCLPrintfResolution.cpp
+index c4b1aad5b..29b092480 100644
+--- a/IGC/Compiler/Optimizer/OpenCLPasses/OpenCLPrintf/OpenCLPrintfResolution.cpp
++++ b/IGC/Compiler/Optimizer/OpenCLPasses/OpenCLPrintf/OpenCLPrintfResolution.cpp
+@@ -550,7 +550,7 @@ void OpenCLPrintfResolution::expandPrintfCall(CallInst& printfCall, Function& F)
+     cmp1->setDebugLoc(m_DL);
+ 
+     // Since we need to insert a branch here, the current basic block should be
+-    // splitted into two parts.
++    // split into two parts.
+     BasicBlock* bblockJoin = currentBBlock->splitBasicBlock(BasicBlock::iterator(printfCall), "bblockJoin");
+ 
+     // Create "true" and "false" branches.
+diff --git a/IGC/Compiler/Optimizer/OpenCLPasses/ProgramScopeConstants/ProgramScopeConstantAnalysis.cpp b/IGC/Compiler/Optimizer/OpenCLPasses/ProgramScopeConstants/ProgramScopeConstantAnalysis.cpp
+index 8cdd537f4..e22078fe8 100644
+--- a/IGC/Compiler/Optimizer/OpenCLPasses/ProgramScopeConstants/ProgramScopeConstantAnalysis.cpp
++++ b/IGC/Compiler/Optimizer/OpenCLPasses/ProgramScopeConstants/ProgramScopeConstantAnalysis.cpp
+@@ -172,7 +172,7 @@ bool ProgramScopeConstantAnalysis::runOnModule(Module& M)
+ 
+         if (initializer->isZeroValue())
+         {
+-            // For zero initialized values, we dont need to copy the data, just tell driver how much to allocate
++            // For zero initialized values, we don't need to copy the data, just tell driver how much to allocate
+             // However, if it's used as a pointer value, we need to do patching and therefore cannot defer the offset calculation
+             bool hasPointerUser = false;
+             for (auto UI : globalVar->users())
+diff --git a/IGC/Compiler/Optimizer/OpenCLPasses/ReplaceUnsupportedIntrinsics/ReplaceUnsupportedIntrinsics.cpp b/IGC/Compiler/Optimizer/OpenCLPasses/ReplaceUnsupportedIntrinsics/ReplaceUnsupportedIntrinsics.cpp
+index ddf748f1a..8e8302dba 100644
+--- a/IGC/Compiler/Optimizer/OpenCLPasses/ReplaceUnsupportedIntrinsics/ReplaceUnsupportedIntrinsics.cpp
++++ b/IGC/Compiler/Optimizer/OpenCLPasses/ReplaceUnsupportedIntrinsics/ReplaceUnsupportedIntrinsics.cpp
+@@ -337,7 +337,7 @@ Value* ReplaceUnsupportedIntrinsics::replicateScalar(
+ //
+ // We may generate <3xi32>, but not <3xi8> as <3xi32> can be loaded
+ // or stored by a single send instruction, where <3xi8> cannot (even
+-// <3xi8> can be splitted later in VectorProcessing, but it's better
++// <3xi8> can be split later in VectorProcessing, but it's better
+ // not generate <3xi8> vector in the first place).
+ //
+ // The same example with given 127 i8's but with keeping size of base
+diff --git a/IGC/Compiler/Optimizer/PreCompiledFuncImport.cpp b/IGC/Compiler/Optimizer/PreCompiledFuncImport.cpp
+index 785ff59c5..4cb23c57f 100644
+--- a/IGC/Compiler/Optimizer/PreCompiledFuncImport.cpp
++++ b/IGC/Compiler/Optimizer/PreCompiledFuncImport.cpp
+@@ -273,7 +273,7 @@ bool PreCompiledFuncImport::preProcessDouble()
+                             Oprd0, Oprd1, "", CallI);
+                         cond->setDebugLoc(CallI->getDebugLoc());
+ 
+-                        // Note that select will be splitted in legalization
++                        // Note that select will be split in legalization
+                         res = SelectInst::Create(cond, Oprd0, Oprd1, "", CallI);
+                         res->setDebugLoc(CallI->getDebugLoc());
+                     }
+diff --git a/IGC/Compiler/Optimizer/RectListOptimizationPass.cpp b/IGC/Compiler/Optimizer/RectListOptimizationPass.cpp
+index 724684b27..8eccfe5e2 100644
+--- a/IGC/Compiler/Optimizer/RectListOptimizationPass.cpp
++++ b/IGC/Compiler/Optimizer/RectListOptimizationPass.cpp
+@@ -55,7 +55,7 @@ class RectListOptimizationPass : public FunctionPass
+     typedef std::unordered_map<attribute_idx, ATTRIB_SOURCELIST_ST> atrribRectListMap;
+     atrribRectListMap m_rectListPerAttrib; //rectlist info per attribute
+ 
+-    //GS ouput instructions grouped together by all attributes
++    //GS output instructions grouped together by all attributes
+     //Map => Vertex Idx ---> <attribute_idx, output_gs instruction>
+     typedef std::unordered_map<attribute_idx, Instruction*> attributeInstMap;
+     typedef std::vector<attributeInstMap> vetexAttribVec;
+@@ -219,7 +219,7 @@ bool RectListOptimizationPass::isRectCoords(
+     do {
+         //Validation of Condition 1 for both X and Y Channels
+         if (XChannel.size() != 2 || YChannel.size() != 2) {
+-            //Doesnt satisfy condition 1
++            //Doesn't satisfy condition 1
+             isRectCoords = false;
+             break;
+         }
+diff --git a/IGC/Compiler/PromoteResourceToDirectAS.cpp b/IGC/Compiler/PromoteResourceToDirectAS.cpp
+index 596767271..8cfc37ab9 100644
+--- a/IGC/Compiler/PromoteResourceToDirectAS.cpp
++++ b/IGC/Compiler/PromoteResourceToDirectAS.cpp
+@@ -530,7 +530,7 @@ void PromoteResourceToDirectAS::PromoteBufferToDirectAS(Instruction* inst, Value
+ 
+     // Vulkan encodes address space differently, with the reserve bits set.
+     // TODO: Investigate how addrspace is encoded in Vulkan,
+-    // for now skip promoting if it's an address space we dont recognize.
++    // for now skip promoting if it's an address space we don't recognize.
+     if ((addrSpace & 0xFFC00000) != 0x0)
+     {
+         return;
+diff --git a/IGC/DebugInfo/DIE.cpp b/IGC/DebugInfo/DIE.cpp
+index 6e774ea05..1a18027b3 100644
+--- a/IGC/DebugInfo/DIE.cpp
++++ b/IGC/DebugInfo/DIE.cpp
+@@ -466,7 +466,7 @@ unsigned DIEBlock::ComputeSize(StreamEmitter *AP) {
+ 
+ /// ComputeSizeOnTheFly - calculate size of block on the fly.
+ /// This function is used to compute size of abbrevs already
+-/// emitted this far. It doesnt update Size method.
++/// emitted this far. It doesn't update Size method.
+ unsigned DIEBlock::ComputeSizeOnTheFly(StreamEmitter *AP) const {
+   unsigned S = 0;
+   const SmallVectorImpl<DIEAbbrevData> &AbbrevData = Abbrev.getData();
+diff --git a/IGC/DebugInfo/DwarfDebug.cpp b/IGC/DebugInfo/DwarfDebug.cpp
+index dd87a6405..aa774dc5a 100644
+--- a/IGC/DebugInfo/DwarfDebug.cpp
++++ b/IGC/DebugInfo/DwarfDebug.cpp
+@@ -1696,7 +1696,7 @@ void DwarfDebug::collectVariableInfo(
+         RegVar = prevRegVar;
+ 
+       // Conditions below decide whether we want to emit location to debug_loc
+-      // or inline it in the DIE. To inline in DIE, we simply dont emit anything
++      // or inline it in the DIE. To inline in DIE, we simply don't emit anything
+       // here and continue the loop.
+       bool needsCallerSave = !VisaDbgInfo->getCFI().callerSaveEntry.empty();
+       if (!EmitSettings.EmitDebugLoc && !needsCallerSave) {
+@@ -1732,7 +1732,7 @@ void DwarfDebug::collectVariableInfo(
+                           << "{ IsSampler: " << Loc.IsSampler() << ", "
+                           << "IsSLM: " << Loc.IsSLM() << ", "
+                           << "HasSurface: " << Loc.HasSurface() << " }\n");
+-        // Assume location of these types doesnt change
++        // Assume location of these types doesn't change
+         // throughout program. Revisit this if required.
+         continue;
+       }
+@@ -2192,7 +2192,7 @@ static DebugLoc getFnDebugLoc(DebugLoc DL, const LLVMContext &Ctx) {
+ // after the function entry point has been emitted.
+ void DwarfDebug::beginFunction(const Function *MF, IGC::VISAModule *v) {
+   // Reset PrologEndLoc so that when processing next function with same
+-  // DwarfDebug instance doesnt use stale value.
++  // DwarfDebug instance doesn't use stale value.
+   PrologEndLoc = DebugLoc();
+   // Clear stale isStmt from previous function compilation.
+   isStmtSet.clear();
+diff --git a/IGC/DebugInfo/VISAModule.cpp b/IGC/DebugInfo/VISAModule.cpp
+index f4e3de2ba..0e324e23c 100644
+--- a/IGC/DebugInfo/VISAModule.cpp
++++ b/IGC/DebugInfo/VISAModule.cpp
+@@ -198,7 +198,7 @@ const std::string &VISAModule::GetTargetTriple() const { return m_triple; }
+ 
+ bool VISAModule::IsExecutableInst(const llvm::Instruction &inst) {
+   // Return false if inst is dbg info intrinsic or if it is
+-  // catch all intrinsic. In both of these cases, we dont want
++  // catch all intrinsic. In both of these cases, we don't want
+   // to emit associated debug loc since there is no machine
+   // code generated for them.
+   if (IsCatchAllIntrinsic(&inst))
+diff --git a/IGC/GenISAIntrinsics/Intrinsic_definitions.py b/IGC/GenISAIntrinsics/Intrinsic_definitions.py
+index 26ef05e08..e4331410d 100644
+--- a/IGC/GenISAIntrinsics/Intrinsic_definitions.py
++++ b/IGC/GenISAIntrinsics/Intrinsic_definitions.py
+@@ -2598,13 +2598,13 @@ Imported_Intrinsics = \
+ "GenISA_TraceRayAsync": ["Raytracing: codegens to send.rta (sync bit not set)",
+     [("void",                          ""),
+     [("anyptr",                        "global buffer pointer"),
+-     ("int",                           "Trace data: bitfield containg bvhLevel, stackID and trcCtrl")],
++     ("int",                           "Trace data: bitfield containing bvhLevel, stackID and trcCtrl")],
+     "None"]],
+ ####################################################################################################
+ "GenISA_TraceRaySync": ["Raytracing: codegens to send.rta (with the sync bit set)",
+     [("int",                           "dst is used to sync the message"),
+     [("anyptr",                        "global buffer pointer"),
+-     ("int",                           "Trace data: bitfield containg bvhLevel, stackID and trcCtrl")],
++     ("int",                           "Trace data: bitfield containing bvhLevel, stackID and trcCtrl")],
+     "None"]],
+ ####################################################################################################
+ "GenISA_TraceRaySyncProceed": ["Raytracing: codegens to ShadowMemoryToSyncStack AND send.rta (sync bit set)",
+@@ -2674,7 +2674,7 @@ Imported_Intrinsics = \
+      ("float",                         "")],
+     "None"]],
+ ####################################################################################################
+-"GenISA_TraceRayInlineCommittedStatus": ["Raytracing: Commited status Query for RayQuery object at index "+\
++"GenISA_TraceRayInlineCommittedStatus": ["Raytracing: Committed status Query for RayQuery object at index "+\
+                                          "taken in the input",
+     [("int",                           ""),
+     [("int",                           "")],
+diff --git a/IGC/Metrics/IGCMetricImpl.cpp b/IGC/Metrics/IGCMetricImpl.cpp
+index c35ddf893..f6eff5aa0 100644
+--- a/IGC/Metrics/IGCMetricImpl.cpp
++++ b/IGC/Metrics/IGCMetricImpl.cpp
+@@ -781,7 +781,7 @@ namespace IGCMetrics
+                 };
+ 
+                 fillRegister(varLoc.GetRegister());
+-                // Special case when we have simd32 splitted into two simd16
++                // Special case when we have simd32 split into two simd16
+                 if (varLoc.HasLocationSecondReg())
+                 {
+                     fillRegister(varLoc.GetSecondReg());
+diff --git a/IGC/Options/include/igc/Options/VCInternalOptions.td b/IGC/Options/include/igc/Options/VCInternalOptions.td
+index 6f2028d66..a066e44a8 100644
+--- a/IGC/Options/include/igc/Options/VCInternalOptions.td
++++ b/IGC/Options/include/igc/Options/VCInternalOptions.td
+@@ -53,7 +53,7 @@ def freset_time_report : PlainFlag<"freset-time-report">,
+ def print_stats : PlainFlag<"print-stats">,
+   HelpText<"Print performance metrics and statistics">;
+ def freset_llvm_stats : PlainFlag<"freset-llvm-stats">,
+-  HelpText<"Reset perfomance metrics before compilation">;
++  HelpText<"Reset performance metrics before compilation">;
+ 
+ def stats_file : PlainSeparate<"stats-file">,
+   HelpText<"Filename to write statistics to">;
+diff --git a/IGC/VectorCompiler/igcdeps/src/PatchTokens.cpp b/IGC/VectorCompiler/igcdeps/src/PatchTokens.cpp
+index da058b8d6..94a474cc8 100644
+--- a/IGC/VectorCompiler/igcdeps/src/PatchTokens.cpp
++++ b/IGC/VectorCompiler/igcdeps/src/PatchTokens.cpp
+@@ -113,7 +113,7 @@ buildZeDebugInfo(const CGen8CMProgram::CMKernelsStorage &Kernels,
+   llvm::raw_string_ostream OutStream(DummyOutput);
+   constexpr bool CanExitEarly = false;
+   if (!IGCLLD::elf::link(LldArgs, CanExitEarly, OutStream, ErrStream)) {
+-    ErrStream << "could not link debug infomation file\n";
++    ErrStream << "could not link debug information file\n";
+     return {};
+   }
+   llvm::FileRemover Remover{OutputPath};
+diff --git a/IGC/VectorCompiler/igcdeps/src/TranslationInterface.cpp b/IGC/VectorCompiler/igcdeps/src/TranslationInterface.cpp
+index f222d656a..47308127e 100644
+--- a/IGC/VectorCompiler/igcdeps/src/TranslationInterface.cpp
++++ b/IGC/VectorCompiler/igcdeps/src/TranslationInterface.cpp
+@@ -151,7 +151,7 @@ static void adjustPlatform(const IGC::CPlatform &IGCPlatform,
+   Opts.CPUStr = PlatformStr ? PlatformStr : "";
+   Opts.RevId = RevId;
+   Opts.HasL1ReadOnlyCache = IGCPlatform.hasL1ReadOnlyCache();
+-  Opts.HasLocalMemFenceSupress = IGCPlatform.localMemFenceSupress();
++  Opts.HasLocalMemFenceSuppress = IGCPlatform.localMemFenceSuppress();
+   Opts.HasMultiTile = IGCPlatform.hasMultiTile();
+   Opts.HasL3CacheCoherentCrossTiles = IGCPlatform.L3CacheCoherentCrossTiles();
+   Opts.HasL3FlushOnGPUScopeInvalidate =
+diff --git a/IGC/VectorCompiler/include/vc/Driver/Driver.h b/IGC/VectorCompiler/include/vc/Driver/Driver.h
+index fc83c93c5..243151cc0 100644
+--- a/IGC/VectorCompiler/include/vc/Driver/Driver.h
++++ b/IGC/VectorCompiler/include/vc/Driver/Driver.h
+@@ -131,7 +131,7 @@ struct CompileOptions {
+   bool UseBindlessBuffers = false;
+   bool EmitZebinVisaSections = false;
+   bool HasL1ReadOnlyCache = false;
+-  bool HasLocalMemFenceSupress = false;
++  bool HasLocalMemFenceSuppress = false;
+   bool HasMultiTile = false;
+   bool HasL3CacheCoherentCrossTiles = false;
+   bool HasL3FlushOnGPUScopeInvalidate = false;
+diff --git a/IGC/VectorCompiler/include/vc/Support/BackendConfig.h b/IGC/VectorCompiler/include/vc/Support/BackendConfig.h
+index 335021ce5..01da3eadd 100644
+--- a/IGC/VectorCompiler/include/vc/Support/BackendConfig.h
++++ b/IGC/VectorCompiler/include/vc/Support/BackendConfig.h
+@@ -77,7 +77,7 @@ struct GenXBackendOptions {
+   // Non-owning pointer to ShaderOverride interface
+   vc::ShaderOverrider *ShaderOverrider = nullptr;
+ 
+-  // Flag to turn off StructSpliter pass
++  // Flag to turn off StructSplitter pass
+   bool DisableStructSplitting = false;
+ 
+   // Flag to disable EU fusion
+diff --git a/IGC/VectorCompiler/lib/Driver/Driver.cpp b/IGC/VectorCompiler/lib/Driver/Driver.cpp
+index 9f7962e03..818900901 100644
+--- a/IGC/VectorCompiler/lib/Driver/Driver.cpp
++++ b/IGC/VectorCompiler/lib/Driver/Driver.cpp
+@@ -153,8 +153,8 @@ static std::string getSubtargetFeatureString(const vc::CompileOptions &Opts) {
+   }
+   if (Opts.HasL1ReadOnlyCache)
+     Features.AddFeature("has_l1_read_only_cache");
+-  if (Opts.HasLocalMemFenceSupress)
+-    Features.AddFeature("supress_local_mem_fence");
++  if (Opts.HasLocalMemFenceSuppress)
++    Features.AddFeature("suppress_local_mem_fence");
+   if (Opts.HasMultiTile)
+     Features.AddFeature("multi_tile");
+   if (Opts.HasL3CacheCoherentCrossTiles)
+diff --git a/IGC/VectorCompiler/lib/GenXCodeGen/GenX.td b/IGC/VectorCompiler/lib/GenXCodeGen/GenX.td
+index afdc923b6..df01b094d 100644
+--- a/IGC/VectorCompiler/lib/GenXCodeGen/GenX.td
++++ b/IGC/VectorCompiler/lib/GenXCodeGen/GenX.td
+@@ -106,10 +106,10 @@ def FeatureHasL1ReadOnlyCache: SubtargetFeature<"has_l1_read_only_cache",
+                                                 "true",
+                                                 "Has L1 read-only cache">;
+ 
+-def FeatureSupressLocalMemFence: SubtargetFeature<"supress_local_mem_fence",
+-                                                  "HasLocalMemFenceSupress",
++def FeatureSuppressLocalMemFence: SubtargetFeature<"suppress_local_mem_fence",
++                                                  "HasLocalMemFenceSuppress",
+                                                   "true",
+-                                                  "Supresses local memory fence">;
++                                                  "Suppresses local memory fence">;
+ def FeatureHasPackedFloat : SubtargetFeature<"has_packed_float",
+                                              "HasPackedFloat",
+                                              "true",
+diff --git a/IGC/VectorCompiler/lib/GenXCodeGen/GenXAggregatePseudoLowering.cpp b/IGC/VectorCompiler/lib/GenXCodeGen/GenXAggregatePseudoLowering.cpp
+index 76b881c47..f6b71b130 100644
+--- a/IGC/VectorCompiler/lib/GenXCodeGen/GenXAggregatePseudoLowering.cpp
++++ b/IGC/VectorCompiler/lib/GenXCodeGen/GenXAggregatePseudoLowering.cpp
+@@ -422,7 +422,7 @@ static Instruction *joinSplitInsts(const std::vector<Instruction *> &SplitInsts,
+                                    const std::vector<IdxListType> &IdxLists,
+                                    Instruction *InsertBefore) {
+   IGC_ASSERT_MESSAGE(SplitInsts.size() == IdxLists.size(),
+-                     "the number of splitted insts doesn't correspond with the "
++                     "the number of split insts doesn't correspond with the "
+                      "number of index lists");
+   Value *JoinInst = UndefValue::get(JoinTy);
+   for (auto &&[SplitInst, IdxList] : zip(SplitInsts, IdxLists)) {
+diff --git a/IGC/VectorCompiler/lib/GenXCodeGen/GenXBaling.cpp b/IGC/VectorCompiler/lib/GenXCodeGen/GenXBaling.cpp
+index 48d0333b5..a0ae61d05 100644
+--- a/IGC/VectorCompiler/lib/GenXCodeGen/GenXBaling.cpp
++++ b/IGC/VectorCompiler/lib/GenXCodeGen/GenXBaling.cpp
+@@ -242,10 +242,10 @@ void GenXBaling::processInst(Instruction *Inst)
+  * any stride restrictions that are incompatible with the region.
+  *
+  * In the legalization pass of baling, we always return true when the main
+- * instruction can be splitted. Otherwise, a region that would be OK after
++ * instruction can be split. Otherwise, a region that would be OK after
+  * being split by legalization might here appear not OK, and that would stop
+  * legalization considering splitting it. However, if the main instruction
+- * cannot be splitted, then we need to check the full restriction
++ * cannot be split, then we need to check the full restriction
+  * otherwise, if the region is considered baled and skip legalization,
+  * we may have illegal standalone read-region.
+  */
+@@ -269,7 +269,7 @@ bool GenXBaling::isRegionOKForIntrinsic(unsigned ArgInfoBits,
+   unsigned GRFLogAlign = Log2_32(GRFWidth);
+   if (AI.Info & GenXIntrinsicInfo::GRFALIGNED) {
+     if (R.Indirect) {
+-      // Instructions that cannot be splitted also cannot allow indirect
++      // Instructions that cannot be split also cannot allow indirect
+       if (!CanSplitBale)
+         return false;
+       Alignment AL = AlignInfo.get(R.Indirect);
+@@ -281,7 +281,7 @@ bool GenXBaling::isRegionOKForIntrinsic(unsigned ArgInfoBits,
+       return false;
+   }
+   if (AI.Info & GenXIntrinsicInfo::OWALIGNED) {
+-    // Instructions that cannot be splitted also cannot allow indirect
++    // Instructions that cannot be split also cannot allow indirect
+     if (R.Indirect) {
+       if (!CanSplitBale)
+         return false;
+@@ -311,7 +311,7 @@ bool GenXBaling::isRegionOKForIntrinsic(unsigned ArgInfoBits,
+       return false;
+     break;
+   case GenXIntrinsicInfo::ONLY_LEGAL_REGION:
+-    // Some instructions like umadw and smadw can't be splitted. It leads
++    // Some instructions like umadw and smadw can't be split. It leads
+     // to problem in legalization. We have to not bale incorrect region with
+     // such instructions in order to split region independently.
+     return R.Width == R.NumElements && R.Stride == 1;
+@@ -371,7 +371,7 @@ bool GenXBaling::isSafeToMove(Instruction *Op, Instruction *From, Instruction *T
+ }
+ 
+ /***********************************************************************
+- * canSplitBale : check if instruction can be splitted
++ * canSplitBale : check if instruction can be split
+  */
+ bool GenXBaling::canSplitBale(Instruction *Inst) const {
+   auto IID = GenXIntrinsic::getGenXIntrinsicID(Inst);
+diff --git a/IGC/VectorCompiler/lib/GenXCodeGen/GenXBaling.h b/IGC/VectorCompiler/lib/GenXCodeGen/GenXBaling.h
+index 4a7e13a21..3a0454023 100644
+--- a/IGC/VectorCompiler/lib/GenXCodeGen/GenXBaling.h
++++ b/IGC/VectorCompiler/lib/GenXCodeGen/GenXBaling.h
+@@ -411,7 +411,7 @@ public:
+   // isBaled : test whether all uses of an instruction would be baled in to
+   // users
+   bool isBaled(const Instruction *Inst) const { return getBaleParent(Inst); }
+-  // canSplitBale : check if instruction can be splitted
++  // canSplitBale : check if instruction can be split
+   bool canSplitBale(Instruction *Inst) const;
+   // getBaleParent : return the instruction baled into, 0 if none
+   Instruction *getBaleParent(const Instruction *Inst) const;
+diff --git a/IGC/VectorCompiler/lib/GenXCodeGen/GenXEmulate.cpp b/IGC/VectorCompiler/lib/GenXCodeGen/GenXEmulate.cpp
+index 031efb77f..986e96cf2 100644
+--- a/IGC/VectorCompiler/lib/GenXCodeGen/GenXEmulate.cpp
++++ b/IGC/VectorCompiler/lib/GenXCodeGen/GenXEmulate.cpp
+@@ -1841,7 +1841,7 @@ Instruction *llvm::genx::emulateI64Operation(const GenXSubtarget *ST,
+     // If there is no explicit request to enable i64 emulation - report
+     // an error
+     if (NewInst && !ST->emulateLongLong() && OptStrictEmulationRequests) {
+-      report_fatal_error("int_emu: target does not suport i64 types", false);
++      report_fatal_error("int_emu: target does not support i64 types", false);
+     }
+   }
+   else if (ST->partialI64Emulation()) {
+diff --git a/IGC/VectorCompiler/lib/GenXCodeGen/GenXIntrinsics.h b/IGC/VectorCompiler/lib/GenXCodeGen/GenXIntrinsics.h
+index efac86f2c..b404d1515 100644
+--- a/IGC/VectorCompiler/lib/GenXCodeGen/GenXIntrinsics.h
++++ b/IGC/VectorCompiler/lib/GenXCodeGen/GenXIntrinsics.h
+@@ -151,7 +151,7 @@ public:
+       TWICEWIDTH =          GENX_ITR_FLAGENUM(4, 4), // operand is twice the execution width
+       STRIDE1 =             GENX_ITR_FLAGENUM(4, 5), // horizontal stride must be 1
+       ONLY_LEGAL_REGION =   GENX_ITR_FLAGENUM(4, 6), // instruction can be baled with only legal
+-                                                     // region that won`t be splitted
++                                                     // region that won`t be split
+     // Modifiers for destination only, 2 bits used
+     SATURATION =            GENX_ITR_FLAGMASK(7, 2),
+     SATURATION_DEFAULT =    GENX_ITR_FLAGENUM(7, 0), // saturation default: not saturated, fp is
+diff --git a/IGC/VectorCompiler/lib/GenXCodeGen/GenXLoadStoreLowering.cpp b/IGC/VectorCompiler/lib/GenXCodeGen/GenXLoadStoreLowering.cpp
+index d5fedc88f..62ead190b 100644
+--- a/IGC/VectorCompiler/lib/GenXCodeGen/GenXLoadStoreLowering.cpp
++++ b/IGC/VectorCompiler/lib/GenXCodeGen/GenXLoadStoreLowering.cpp
+@@ -890,7 +890,7 @@ static void emitFencesForAtomic(Instruction &NewAtomicI,
+ 
+   bool IsGlobal = (AS == vc::AddrSpace::Global);
+   IGC_ASSERT_MESSAGE(IsGlobal, "Global address space for atomic expected");
+-  bool EmitFence = IsGlobal || !ST.hasLocalMemFenceSupress();
++  bool EmitFence = IsGlobal || !ST.hasLocalMemFenceSuppress();
+ 
+   bool PreOpNeedsFence = (Ordering == AtomicOrdering::Release) ||
+                          (Ordering == AtomicOrdering::AcquireRelease) ||
+diff --git a/IGC/VectorCompiler/lib/GenXCodeGen/GenXLowering.cpp b/IGC/VectorCompiler/lib/GenXCodeGen/GenXLowering.cpp
+index 8f1e5fd78..4e91149e4 100644
+--- a/IGC/VectorCompiler/lib/GenXCodeGen/GenXLowering.cpp
++++ b/IGC/VectorCompiler/lib/GenXCodeGen/GenXLowering.cpp
+@@ -437,7 +437,7 @@ static SelectInst *getLoadSelect(CallInst *Inst) {
+   return SI;
+ }
+ 
+-// Generate predicate for wrregion of splitted load.
++// Generate predicate for wrregion of split load.
+ // Returns new predicate.
+ static Value *generatePredicateForLoadWrregion(
+     Value *OldPred, unsigned Offset, unsigned Width, unsigned NumChannels,
+@@ -496,7 +496,7 @@ static Value *generatePredicatedWrregion(Value *OldVal, Value *NewVal,
+ }
+ 
+ 
+-// Generate partial write for result of splitted 1-channel load instruction.
++// Generate partial write for result of split 1-channel load instruction.
+ // Initially we could have following sequence for illegal load (on gather_scaled example):
+ //   res = gather_scaled <32>
+ //   mask = rdpredregion <32> pred, offset
+@@ -533,8 +533,8 @@ static Value *generate1ChannelWrrregion(Value *Target, unsigned InitialOffset,
+   return WrR.createWrRegion(Target, Load, "load1.join", InsertBefore, DL);
+ }
+ 
+-// Generate partial write for result of splitted N-channel load.
+-// For channelled loads we need to also shuffle result of splitted
++// Generate partial write for result of split N-channel load.
++// For channelled loads we need to also shuffle result of split
+ // instructions to write back them to destination in expected order.
+ // Temporary splits should always be predicated in case of atomics
+ // because latter load and store at the same time.
+@@ -647,7 +647,7 @@ Value *getPredicateForLoadSplitting(CallInst *Load) {
+ 
+   // Try to infer the mask from users.
+   if (LoadWrr) {
+-    // If we found wrregion user, then use its predicate for splitted
++    // If we found wrregion user, then use its predicate for split
+     // instructions.
+     return LoadWrr->getArgOperand(
+         GenXIntrinsic::GenXRegion::PredicateOperandNum);
+@@ -656,7 +656,7 @@ Value *getPredicateForLoadSplitting(CallInst *Load) {
+   return SI->getCondition();
+ }
+ 
+-// Get target for wrregions of splitted load.
++// Get target for wrregions of split load.
+ // Returns tuple consisted of:
+ //  1. Target for wrregions
+ //  2. Predicate
+diff --git a/IGC/VectorCompiler/lib/GenXCodeGen/GenXStructSplitter.cpp b/IGC/VectorCompiler/lib/GenXCodeGen/GenXStructSplitter.cpp
+index f1172bc55..b464cf456 100644
+--- a/IGC/VectorCompiler/lib/GenXCodeGen/GenXStructSplitter.cpp
++++ b/IGC/VectorCompiler/lib/GenXCodeGen/GenXStructSplitter.cpp
+@@ -841,7 +841,7 @@ void DependencyGraph::remakeParent(Node &SNode, Node &SNodeToChange,
+   NewElements.reserve(NewMaxSize);
+   // First create an empty structure.
+   // Later setBody with elements. It is for completing VecOfStructInfo.
+-  StructType *BeforeSplitingS = StructType::create(
++  StructType *BeforeSplittingS = StructType::create(
+       CurrentS->getContext(), Twine(CurrentSName + "_BS").str());
+   ElemMapping NewIndices(NumElements);
+   unsigned ExpandIndicies{0};
+@@ -854,7 +854,7 @@ void DependencyGraph::remakeParent(Node &SNode, Node &SNodeToChange,
+       // this element with new.
+       for (auto &&NewSTy : NewReplaceTypes) {
+         NewElements.emplace_back(NewSTy);
+-        NewIndices[Index].emplace_back(BeforeSplitingS,
++        NewIndices[Index].emplace_back(BeforeSplittingS,
+                                        Index + ExpandIndicies++);
+       }
+       // The Index will be inc, so there is no need of extra offset.
+@@ -863,18 +863,18 @@ void DependencyGraph::remakeParent(Node &SNode, Node &SNodeToChange,
+       // If element of structure is not changed, then just copies info about it
+       // and places right indices.
+       NewElements.emplace_back(Elem);
+-      NewIndices[Index].emplace_back(BeforeSplitingS, Index + ExpandIndicies);
++      NewIndices[Index].emplace_back(BeforeSplittingS, Index + ExpandIndicies);
+     }
+   }
+ 
+-  BeforeSplitingS->setBody(NewElements);
++  BeforeSplittingS->setBody(NewElements);
+ 
+   // Updates AllStructs and SplitStructs info.
+-  setInfoAboutStructure(*BeforeSplitingS);
++  setInfoAboutStructure(*BeforeSplittingS);
+   SplitStructs.emplace_back(CurrentS, std::move(NewIndices));
+ 
+   // Substitutes structure in Node.
+-  SNode.substitute(*BeforeSplitingS);
++  SNode.substitute(*BeforeSplittingS);
+ }
+ 
+ //
+diff --git a/IGC/VectorCompiler/lib/GenXCodeGen/GenXSubtarget.h b/IGC/VectorCompiler/lib/GenXCodeGen/GenXSubtarget.h
+index 40ae9017b..8c0f13af9 100644
+--- a/IGC/VectorCompiler/lib/GenXCodeGen/GenXSubtarget.h
++++ b/IGC/VectorCompiler/lib/GenXCodeGen/GenXSubtarget.h
+@@ -151,8 +151,8 @@ private:
+   // Has L1 read-only cache.
+   bool HasL1ReadOnlyCache = false;
+ 
+-  // Supress local memory fence.
+-  bool HasLocalMemFenceSupress = false;
++  // Suppress local memory fence.
++  bool HasLocalMemFenceSuppress = false;
+ 
+   /// Packed float immediate vector operands are supported.
+   bool HasPackedFloat = false;
+@@ -398,7 +398,7 @@ public:
+   bool has64BitRotate() const { return Has64BitRotate; }
+ 
+   bool hasL1ReadOnlyCache() const { return HasL1ReadOnlyCache; }
+-  bool hasLocalMemFenceSupress() const { return HasLocalMemFenceSupress; }
++  bool hasLocalMemFenceSuppress() const { return HasLocalMemFenceSuppress; }
+   bool hasMultiTile() const { return HasMultiTile; };
+   bool hasL3CacheCoherentCrossTiles() const {
+     return HasL3CacheCoherentCrossTiles;
+diff --git a/IGC/VectorCompiler/lib/GenXCodeGen/GenXVectorCombiner.cpp b/IGC/VectorCompiler/lib/GenXCodeGen/GenXVectorCombiner.cpp
+index 705830cb6..2bddb7b92 100644
+--- a/IGC/VectorCompiler/lib/GenXCodeGen/GenXVectorCombiner.cpp
++++ b/IGC/VectorCompiler/lib/GenXCodeGen/GenXVectorCombiner.cpp
+@@ -10,7 +10,7 @@ SPDX-License-Identifier: MIT
+ /// GenXVectorCombiner
+ /// ------------
+ // This pass checks whether we use whole vector in operation,
+-// but this operation is splitted for parts of vector,
++// but this operation is split for parts of vector,
+ // and if we can combine them together, we do this
+ ///
+ //===----------------------------------------------------------------------===//
+diff --git a/IGC/VectorCompiler/lib/Support/BackendConfig.cpp b/IGC/VectorCompiler/lib/Support/BackendConfig.cpp
+index 0784d6aba..01eb8aa01 100644
+--- a/IGC/VectorCompiler/lib/Support/BackendConfig.cpp
++++ b/IGC/VectorCompiler/lib/Support/BackendConfig.cpp
+@@ -82,7 +82,7 @@ static cl::opt<bool>
+ 
+ static cl::opt<bool>
+     DisableExtraCoalescingOpt("vc-disable-extra-coalescing", cl::Hidden,
+-                              cl::desc("disable extrac coalescing"));
++                              cl::desc("disable extra coalescing"));
+ 
+ static cl::opt<bool> DisableNonOverlappingRegionOptOpt(
+     "vc-disable-non-overlapping-region-opt", cl::Hidden,
+diff --git a/IGC/VectorCompiler/lib/Support/PassManager.cpp b/IGC/VectorCompiler/lib/Support/PassManager.cpp
+index 626b11b90..54c15933b 100644
+--- a/IGC/VectorCompiler/lib/Support/PassManager.cpp
++++ b/IGC/VectorCompiler/lib/Support/PassManager.cpp
+@@ -298,9 +298,9 @@ void addPassImpl(PMT &PM, Pass &P, AdderT Adder) {
+     return Adder(PM, P);
+   }
+   PassKind PassKindID = P.getPassKind();
+-  // Extra passes are inserted independent on whether or not the pass is ommited
++  // Extra passes are inserted independent on whether or not the pass is omitted
+   // to preserve numbering of passes inside them (if '*' is passed to
+-  // -vc-dump-...-pass, and one occurence of a pass is ommited, the numbering of
++  // -vc-dump-...-pass, and one occurence of a pass is omitted, the numbering of
+   // others would shift if addExtraPasses would not be called).
+   addExtraPass<ExtraIRDumpBeforePass>(PM, PassInfo, PassKindID, Adder);
+   addExtraPass<ExtraVerificationBeforePass>(PM, PassInfo, PassKindID, Adder);
+@@ -308,7 +308,7 @@ void addPassImpl(PMT &PM, Pass &P, AdderT Adder) {
+   auto PassArg = PassInfo->getPassArgument();
+   auto res = DisablePass.getValue().includes(PassArg);
+   if (res.first)
+-    errs() << "Pass " << PassArg << res.second.str() << " is ommited\n";
++    errs() << "Pass " << PassArg << res.second.str() << " is omitted\n";
+   else
+     Adder(PM, P);
+ 
+diff --git a/IGC/cmake/igc_llvm_utils.cmake b/IGC/cmake/igc_llvm_utils.cmake
+index 4c5f2d971..aadbc8ea1 100644
+--- a/IGC/cmake/igc_llvm_utils.cmake
++++ b/IGC/cmake/igc_llvm_utils.cmake
+@@ -101,7 +101,7 @@ function(igc_add_lit_target target binary_dir comment)
+     list(APPEND LIT_ARGS --param build_mode=${CMAKE_CFG_INTDIR})
+   endif ()
+ 
+-  # Get the path to the lit to *run* tests with.  This can be overriden by
++  # Get the path to the lit to *run* tests with.  This can be overridden by
+   # the user by specifying -DLLVM_EXTERNAL_LIT=<path-to-lit.py>
+   get_llvm_lit_path(
+     lit_base_dir
+diff --git a/IGC/common/LLVMUtils.cpp b/IGC/common/LLVMUtils.cpp
+index 41b2f4a5d..0b0df9960 100644
+--- a/IGC/common/LLVMUtils.cpp
++++ b/IGC/common/LLVMUtils.cpp
+@@ -788,7 +788,7 @@ void DumpLLVMIR(IGC::CodeGenContext* pContext, const char* dumpName)
+                 pContext->deleteModule();
+                 pContext->setModule(mod);
+                 deserialize(*(pContext->getModuleMetaData()), mod);
+-                appendToShaderOverrideLogFile(fileName, "OVERRIDEN: ");
++                appendToShaderOverrideLogFile(fileName, "OVERRIDDEN: ");
+             }
+             else
+             {
+diff --git a/IGC/common/MDFrameWork.h b/IGC/common/MDFrameWork.h
+index f3b5056ee..6cfc13a85 100644
+--- a/IGC/common/MDFrameWork.h
++++ b/IGC/common/MDFrameWork.h
+@@ -339,7 +339,7 @@ namespace IGC
+     // isCloned member is added to mark whether a function is clone
+     // of another one. If two kernels from a compilation unit invoke
+     // the same callee, IGC ends up creating clone of the callee
+-    // to separate call graphs. But it doesnt create metadata nodes
++    // to separate call graphs. But it doesn't create metadata nodes
+     // so debug info for cloned function will be empty. Marking
+     // function as clone and later in debug info iterating over
+     // original function instead of clone helps emit out correct debug
+diff --git a/IGC/common/ModuleSplitter.cpp b/IGC/common/ModuleSplitter.cpp
+index ce1a68ceb..0fafe09f1 100644
+--- a/IGC/common/ModuleSplitter.cpp
++++ b/IGC/common/ModuleSplitter.cpp
+@@ -20,7 +20,7 @@ SPDX-License-Identifier: MIT
+ namespace IGC {
+ KernelModuleSplitter::KernelModuleSplitter(
+     IGC::OpenCLProgramContext &oclContext, llvm::Module &module)
+-    : _oclContext(oclContext), _originalModule(module), _splittedModule(nullptr)
++    : _oclContext(oclContext), _originalModule(module), _splitModule(nullptr)
+     {}
+ 
+ KernelModuleSplitter::~KernelModuleSplitter()
+@@ -81,21 +81,21 @@ void KernelModuleSplitter::splitModuleForKernel(const llvm::Function* kernelF) {
+     mpm.add(createStripDeadPrototypesPass()); // Remove dead func decls.
+ 
+     mpm.run(*kernelM.get());
+-    _splittedModule = std::move(kernelM);
++    _splitModule = std::move(kernelM);
+ }
+ 
+ void KernelModuleSplitter::retry()
+ {
+-    if(_splittedModule)
++    if(_splitModule)
+     {
+         restoreOclContextModule();
+-        delete _splittedModule.release();
++        delete _splitModule.release();
+     }
+ }
+ 
+ void KernelModuleSplitter::restoreOclContextModule()
+ {
+-    if(_splittedModule)
++    if(_splitModule)
+     {
+         _oclContext.clearMD();
+         _oclContext.setModule(&_originalModule);
+@@ -104,10 +104,10 @@ void KernelModuleSplitter::restoreOclContextModule()
+ 
+ void KernelModuleSplitter::setSplittedModuleInOCLContext()
+ {
+-    if(_splittedModule)
++    if(_splitModule)
+     {
+         _oclContext.clearMD();
+-        _oclContext.setModule(_splittedModule.get());
++        _oclContext.setModule(_splitModule.get());
+     }
+ }
+ } // namespace IGC
+\ No newline at end of file
+diff --git a/IGC/common/ModuleSplitter.h b/IGC/common/ModuleSplitter.h
+index f77814e4e..e4480815e 100644
+--- a/IGC/common/ModuleSplitter.h
++++ b/IGC/common/ModuleSplitter.h
+@@ -26,6 +26,6 @@ public:
+ private:
+     IGC::OpenCLProgramContext& _oclContext;
+     llvm::Module& _originalModule;
+-    std::unique_ptr<llvm::Module> _splittedModule;
++    std::unique_ptr<llvm::Module> _splitModule;
+ };
+ } // namespace IGC
+\ No newline at end of file
+diff --git a/IGC/common/ShaderOverride.cpp b/IGC/common/ShaderOverride.cpp
+index 1580ce9fd..ed0f5366c 100644
+--- a/IGC/common/ShaderOverride.cpp
++++ b/IGC/common/ShaderOverride.cpp
+@@ -293,7 +293,7 @@ void overrideShaderIGA(PLATFORM const & platform, void *& genxbin, int & binSize
+         binSize = overrideBinarySize;
+         binOverride = true;
+ 
+-        appendToShaderOverrideLogFile(binFileName, "OVERRIDEN: ");
++        appendToShaderOverrideLogFile(binFileName, "OVERRIDDEN: ");
+     }
+ 
+     fIGAReleaseContext(ctx);
+@@ -312,6 +312,6 @@ void overrideShaderBinary(void *& genxbin, int & binSize, std::string const &bin
+         genxbin = loadBin;
+         binSize = loadBinSize;
+         binOverride = true;
+-        appendToShaderOverrideLogFile(binFileName, "OVERRIDEN: ");
++        appendToShaderOverrideLogFile(binFileName, "OVERRIDDEN: ");
+     }
+ }
+diff --git a/IGC/common/SysUtils.cpp b/IGC/common/SysUtils.cpp
+index b27fc530d..b291b49cd 100644
+--- a/IGC/common/SysUtils.cpp
++++ b/IGC/common/SysUtils.cpp
+@@ -114,12 +114,12 @@ namespace IGC
+             {
+                 basedir[pos] = 0;
+ 
+-                if (stat(basedir.data(), &statbuf) != 0) //dir doesnt exist
++                if (stat(basedir.data(), &statbuf) != 0) //dir doesn't exist
+                 {
+                     if (!CreateSingleDir(basedir.data())) //couldn't create
+                         return false;
+                 }
+-                else if (!S_ISDIR(statbuf.st_mode)) //exists but isnt dir
++                else if (!S_ISDIR(statbuf.st_mode)) //exists but isn't dir
+                     return false;
+ 
+                 basedir[pos] = '/';
+diff --git a/IGC/common/igc_flags.h b/IGC/common/igc_flags.h
+index 2b798d674..08fc5bebc 100644
+--- a/IGC/common/igc_flags.h
++++ b/IGC/common/igc_flags.h
+@@ -180,7 +180,7 @@ DECLARE_IGC_REGKEY(debugString, LLVMCommandLine,        0,     "applies LLVM com
+ DECLARE_IGC_REGKEY(bool, DisableDX9LowPrecision,        true,  "Disables HF in DX9.", false)
+ DECLARE_IGC_REGKEY(bool, EnablePingPongTextureOpt,      true,  "Enables the Ping Pong texture optimization which is used only for Compute Shaders for back to back dispatches", false)
+ DECLARE_IGC_REGKEY(bool, EnableAtomicBranch,            false, "Enable Atomic branch optimization which break atomic into if/else with atomic and read based on the operation", false)
+-DECLARE_IGC_REGKEY(bool, EnableThreeWayLoadSpiltOpt,    false, "Enable three way load spilt opt.", false)
++DECLARE_IGC_REGKEY(bool, EnableThreeWayLoadSplitOpt,    false, "Enable three way load split opt.", false)
+ DECLARE_IGC_REGKEY(bool, EnableSamplerChannelReturn,    true,  "Setting this to 1/true adds a compiler switch to enable using header to return selective channels from sampler", false)
+ DECLARE_IGC_REGKEY(bool, EnableThreadCombiningOpt,      true,  "Enables the thread combining optimization which is used only for Compute Shaders for combining a number of software threads to dispatch smaller number of hardware threads", false)
+ DECLARE_IGC_REGKEY(bool, DisablePromotePrivMem,         false, "Setting this to 1/true adds a compiler switch to disable IGC private array promotion", false)
+@@ -274,7 +274,7 @@ DECLARE_IGC_REGKEY(bool, SystemThreadEnable,            false, "This key forces
+ 
+ DECLARE_IGC_REGKEY(bool, EnableSIPOverride,             false, "This key forces load of SIP from a a Local File.", false)
+ DECLARE_IGC_REGKEY(debugString, SIPOverrideFilePath,    0,     "This key when enabled with EnableSIPOverride load of SIP from a specified path.", false)
+-DECLARE_IGC_REGKEY(bool, DumpPayloadToScratch,          false, "Setting this to 1/true dumps thread payload to scartch space. Used for  workloads which doesnt use scartch space for other purposes", false)
++DECLARE_IGC_REGKEY(bool, DumpPayloadToScratch,          false, "Setting this to 1/true dumps thread payload to scratch space. Used for workloads which don't use scratch space for other purposes", false)
+ DECLARE_IGC_REGKEY(DWORD, DebugInternalSwitch,          0,     "Code pass selection, debug only", false)
+ DECLARE_IGC_REGKEY(bool, SToSProducesPositivePointer,   false, "This key is for StatelessToStateful optimization if the  user knows the pointer offset is postive to the kernel argument.", false)
+ DECLARE_IGC_REGKEY(bool, EnableSupportBufferOffset,     false, "[debugging]For StatelessToStateful optimization [OCL], support implicit buffer offset argument (same as -cl-intel-has-buffer-offset-arg).", false)
+@@ -343,7 +343,7 @@ DECLARE_IGC_REGKEY(bool, DumpOCLProgramInfo,            false, "dump OpenCL Patc
+ DECLARE_IGC_REGKEY(bool, DumpPatchTokens,               false, "Enable dumping of patch tokens.", true)
+ DECLARE_IGC_REGKEY(bool, DumpVariableAlias,             false, "Dump variable alias info, valid if EnableVariableAlias is on)", true)
+ DECLARE_IGC_REGKEY(bool, DumpDeSSA,                     false, "dump DeSSA info into file.", true)
+-DECLARE_IGC_REGKEY(bool, DumpWIA,                       false, "dump WI (uniform) infomation into files in dump directory if set to true", false)
++DECLARE_IGC_REGKEY(bool, DumpWIA,                       false, "dump WI (uniform) information into files in dump directory if set to true", false)
+ DECLARE_IGC_REGKEY(bool, EnableScalarizerDebugLog,      false, "print step by step scalarizer debug info.", true)
+ DECLARE_IGC_REGKEY(bool, DumpTimeStats,                 false, "Timing of translation, code generation, finalizer, etc", true)
+ DECLARE_IGC_REGKEY(bool, DumpTimeStatsCoarse,           false, "Only collect/dump coarse level time stats, i.e. skip opt detail timer for now", true)
+@@ -362,7 +362,7 @@ DECLARE_IGC_REGKEY(bool, UseOffsetInLocation,           true,  "Setting this to
+ DECLARE_IGC_REGKEY(bool, EnableRelocations,             false, "Setting this to 1 (true) makes IGC emit relocatable ELF with debug info", true)
+ DECLARE_IGC_REGKEY(bool, EnableWriteOldFPToStack,       true,  "Setting this to 1 (true) writes the caller frame's frame-pointer to the start of callee's frame on stack, to support stack walk", false)
+ DECLARE_IGC_REGKEY(bool, ZeBinCompatibleDebugging,      true,  "Setting this to 1 (true) enables embed debug info in zeBinary", true)
+-DECLARE_IGC_REGKEY(bool, DebugInfoEnforceAmd64EM,       false, "Enforces elf file with the debug infomation to have eMachine set to AMD64", false)
++DECLARE_IGC_REGKEY(bool, DebugInfoEnforceAmd64EM,       false, "Enforces elf file with the debug information to have eMachine set to AMD64", false)
+ DECLARE_IGC_REGKEY(bool, DebugInfoValidation,           false, "Enable optional (strict) checks to detect debug information inconsistencies", false)
+ DECLARE_IGC_REGKEY(bool, deadLoopForFloatException,           false, "enable a dead loop if float exception happened", false)
+ DECLARE_IGC_REGKEY(debugString, ExtraOCLOptions,        0,     "Extra options for OpenCL", true)
+@@ -648,7 +648,7 @@ DECLARE_IGC_REGKEY(bool, FastCompileRA, false, "Provide the fast compilatoin pat
+ DECLARE_IGC_REGKEY(bool, HybridRAWithSpill, false, "Did Hybrid RA with Spill", false)
+ DECLARE_IGC_REGKEY(DWORD, StripDebugInfo, 0,
+     "Strip debug info from llvm IR lowered from input to IGC ."\
+-    "Possible values: 0 - dont strip, 1 - strip all, 2 - strip non-line info",
++    "Possible values: 0 - don't strip, 1 - strip all, 2 - strip non-line info",
+     false)
+ DECLARE_IGC_REGKEY(bool, EmitPreDefinedForAllFunctions, false, "When enabled, pre-defined variables for gid, grid, lid are emitted for all functions. This causes those functions to be inlined even when stack calls is enabled.", true)
+ DECLARE_IGC_REGKEY(bool, EnableGPUFenceScopeOnSingleTileGPUs, false, "Allow the use of `GPU` fence scope on single-tile GPUs. By default the `TILE` scope is used instead of `GPU` scope on single-tile GPUs.", true)
+diff --git a/documentation/shader_dumps_instruction.md b/documentation/shader_dumps_instruction.md
+index f0e64e0a0..b16ab571d 100644
+--- a/documentation/shader_dumps_instruction.md
++++ b/documentation/shader_dumps_instruction.md
+@@ -88,4 +88,4 @@ To inject a dump into a compilation pipeline:
+ 3. Copy modified dump to the `/tmp/IntelIGC/ShaderOverride` directory.
+ 4. The hash in the name of the dump being injected needs to be the same as the dumps produced normally by the program.
+ 
+-The next time a compilation is run IGC will take files from this directory and override its running compilation. If the process is successful a log message `OVERRIDEN: ...` will be printed to `stdout`.
++The next time a compilation is run IGC will take files from this directory and override its running compilation. If the process is successful a log message `OVERRIDDEN: ...` will be printed to `stdout`.
+diff --git a/scripts/buildIGC.sh b/scripts/buildIGC.sh
+index 9f7c4e8c3..9f11913f9 100644
+--- a/scripts/buildIGC.sh
++++ b/scripts/buildIGC.sh
+@@ -12,7 +12,7 @@ set -e
+ # UBUNTU_VERSION   supported value [ 18, 20 ]                                                default 20
+ # LLVM_VERSION     supported value [ 10, 11, 12 ]                                            default 11
+ # COMPILER         supported value [ gcc, clang ]                                            default gcc
+-# OWN_CMAKE_FLAGS  not suported but can be use as WA (each flag should be with -D prefix)    default empty
++# OWN_CMAKE_FLAGS  not supported but can be use as WA (each flag should be with -D prefix)   default empty
+ # example run:     UBUNTU_VERSION=ubuntu2004 LLVM_VERSION=11 COMPILER=gcc sh /home/buildIGC.sh
+ 
+ echo "====================BUILD IGC========================="
+diff --git a/scripts/buildSLT.sh b/scripts/buildSLT.sh
+index 5d7f5fbc7..cdc0d5867 100644
+--- a/scripts/buildSLT.sh
++++ b/scripts/buildSLT.sh
+@@ -11,7 +11,7 @@
+ set -e
+ # UBUNTU_VERSION   supported value [ 18, 20 ]                                                default 20
+ # LLVM_VERSION     supported value [ 10, 11, 12 ]                                            default 11
+-# OWN_CMAKE_FLAGS  not suported but can be use as WA (each flag should be with -D prefix)    default empty
++# OWN_CMAKE_FLAGS  not supported but can be use as WA (each flag should be with -D prefix)   default empty
+ # example run:     UBUNTU_VERSION=ubuntu2004 LLVM_VERSION=11 sh /home/buildSLT.sh
+ 
+ echo "====================BUILD SPIRV-LLVM-Translator========================="
+diff --git a/visa/BuildCISAIRImpl.cpp b/visa/BuildCISAIRImpl.cpp
+index 83b0099d9..5123e5497 100644
+--- a/visa/BuildCISAIRImpl.cpp
++++ b/visa/BuildCISAIRImpl.cpp
+@@ -235,7 +235,7 @@ static const WA_TABLE *CreateVisaWaTable(TARGET_PLATFORM platform, Stepping step
+ // Change default values of some options according to WA_TABLE
+ // The values are set before parsing any flags specified by client
+ // (either within CreateVISABuilder() call or via VISABuilder interface)
+-// and may be overriden by client flags
++// and may be overridden by client flags
+ static void AddWAOptions(Options &options, const WA_TABLE &waTable)
+ {
+     if (waTable.Wa_1808850743 || waTable.Wa_1409909237)
+@@ -1433,7 +1433,7 @@ static void Stitch_Compiled_Units(
+             }
+             else
+             {
+-                // src0 is dont care for indirect call as long it's not a label
++                // src0 is don't care for indirect call as long it's not a label
+                 auto callInst = builder->createInternalInst(
+                     fcall->getPredicate(), G4_call, nullptr, g4::NOSAT, fcall->getExecSize(),
+                     fcall->getDst(), fcall->getSrc(0), fcall->getSrc(0), fcall->getOption());
+@@ -2027,7 +2027,7 @@ int CISA_IR_Builder::Compile(const char* nameInput, std::ostream* os, bool emit_
+                     // specify its binary buffer in m_cisaBinary
+                     // FIXME: By this the external functions' gen-binary will be part of .isa output when
+                     // calling CisaBinary::dumpToStream, and avoid the assert in dumpToStream. But when
+-                    // parsing the emited .isa file, our parser may not correctly support this case.
++                    // parsing the emitted .isa file, our parser may not correctly support this case.
+                     if (m_options.getOption(vISA_noStitchExternFunc) &&
+                         func->getKernel()->getBoolKernelAttr(Attributes::ATTR_Extern)) {
+                         m_cisaBinary->patchFunctionWithGenBinary(functionCount, func->getGenxBinarySize(),
+diff --git a/visa/DebugInfo.cpp b/visa/DebugInfo.cpp
+index 87578a11e..ed5f02700 100644
+--- a/visa/DebugInfo.cpp
++++ b/visa/DebugInfo.cpp
+@@ -638,7 +638,7 @@ void KernelDebugInfo::generateByteOffsetMapping(std::list<G4_BB*>& stackCallEntr
+         {
+             // verify if bb is part of stackCallEntryBBs list
+             MUST_BE_TRUE(std::find(stackCallEntryBBs.begin(), stackCallEntryBBs.end(), bb) != stackCallEntryBBs.end(),
+-                "didnt find matching entry bb from stitched stack call");
++                "didn't find matching entry bb from stitched stack call");
+             break;
+         }
+ 
+@@ -879,7 +879,7 @@ unsigned int populateMapDclName(VISAKernelImpl* kernel, std::map<G4_Declare*, st
+     for (uint32_t ctr = 0; ctr < kernel->getGenVarCount(); ctr++)
+     {
+         // Pre-defined gen vars are included in this list,
+-        // but we dont want to emit them to debug info.
++        // but we don't want to emit them to debug info.
+         if (kernel->getGenVar((unsigned int)ctr)->index >= kernel->getNumPredVars())
+         {
+             dclList.push_back(kernel->getGenVar((unsigned int)ctr));
+@@ -1508,7 +1508,7 @@ void emitDataCallFrameInfo(VISAKernelImpl* visaKernel, T& t)
+ }
+ 
+ // compilationUnits has 1 kernel and stack call functions
+-// referenced by it. In case stack call functions dont
++// referenced by it. In case stack call functions don't
+ // exist in input, it only has a kernel.
+ template<class T>
+ void emitData(std::list<VISAKernelImpl*>& compilationUnits, T t)
+diff --git a/visa/G4Instruction.h b/visa/G4Instruction.h
+index 7ba253ac7..fee3c18ce 100644
+--- a/visa/G4Instruction.h
++++ b/visa/G4Instruction.h
+@@ -141,7 +141,7 @@ HANDLE_INST(pseudo_exit,  0, 0, InstTypeFlow, GENX_BDW, ATTR_NONE)
+ HANDLE_INST(pseudo_fc_call, 1, 1, InstTypeFlow, GENX_BDW, ATTR_NONE)
+   // pseudo_fc_ret are generated for return statements from callable kernels.
+   // This has to be done because for kernels, we convert VISA ret instruction
+-  // to EOT. But for callable kernels, we dont want to emit EOT because they
++  // to EOT. But for callable kernels, we don't want to emit EOT because they
+   // may have to return to a top-level kernel. Only top-level kernel will
+   // have VISA ret lowered to EOT.
+ HANDLE_INST(pseudo_fc_ret, 1, 0, InstTypeFlow, GENX_BDW, ATTR_NONE)
+diff --git a/visa/G4_IR.cpp b/visa/G4_IR.cpp
+index 61c664f06..48dde26a9 100644
+--- a/visa/G4_IR.cpp
++++ b/visa/G4_IR.cpp
+@@ -3709,7 +3709,7 @@ void G4_INST::emitInstIds(std::ostream& output) const
+ 
+ //
+ // Here we add a parameter symbolreg instead of use global option Options::symbolReg,
+-// because we should ouput non-symbolic register when dumping dot files
++// because we should output non-symbolic register when dumping dot files
+ //
+ void G4_INST::emit(std::ostream& output, bool symbolreg, bool dotStyle)
+ {
+diff --git a/visa/G4_IR.hpp b/visa/G4_IR.hpp
+index bc8a9e24d..423c77c49 100644
+--- a/visa/G4_IR.hpp
++++ b/visa/G4_IR.hpp
+@@ -2087,7 +2087,7 @@ public:
+             return getAliasDeclare()->isSpilled();
+         }
+ 
+-        // Following executed only if G4_Declare doesnt have an alias
++        // Following executed only if G4_Declare doesn't have an alias
+         return spillFlag;
+     }
+ 
+diff --git a/visa/G4_Kernel.hpp b/visa/G4_Kernel.hpp
+index 88e44fc8a..c45425319 100644
+--- a/visa/G4_Kernel.hpp
++++ b/visa/G4_Kernel.hpp
+@@ -400,7 +400,7 @@ public:
+ 
+     // return the number of reserved GRFs for stack call ABI
+     // the reserved registers are at the end of the GRF file (e.g., r125-r127)
+-    // for some architectures/ABI version, we dont need a copy of r0 and
++    // for some architectures/ABI version, we don't need a copy of r0 and
+     // instructions can directly refer to r0 in code (eg, sends).
+     uint32_t numReservedABIGRF() const {
+         if (getuInt32Option(vISA_StackCallABIVer) == VER_1)
+diff --git a/visa/GraphColor.cpp b/visa/GraphColor.cpp
+index debd90a59..91957641a 100644
+--- a/visa/GraphColor.cpp
++++ b/visa/GraphColor.cpp
+@@ -1713,7 +1713,7 @@ void Interference::buildInterferenceAtBBExit(const G4_BB* bb, SparseBitSet& live
+ }
+ 
+ //
+-// Filter out partial or splitted declares in batch interference.
++// Filter out partial or split declares in batch interference.
+ //
+ inline void Interference::filterSplitDclares(unsigned startIdx, unsigned endIdx, unsigned n, unsigned col, unsigned &elt, bool is_partial)
+ {
+@@ -1727,7 +1727,7 @@ inline void Interference::filterSplitDclares(unsigned startIdx, unsigned endIdx,
+         }
+     }
+ 
+-    //if current is splitted dcl, don't interference with any of its child nodes.
++    //if current is split dcl, don't interference with any of its child nodes.
+     //if current is partial dcl, don't interference with any other child nodes.
+     if (col >= startIdx / BITS_DWORD  && col < (endIdx / BITS_DWORD + 1))
+     {
+@@ -1756,7 +1756,7 @@ void Interference::buildInterferenceWithLive(const SparseBitSet& live, unsigned
+ {
+     const LiveRange* lr = lrs[i];
+     bool is_partial = lr->getIsPartialDcl();
+-    bool is_splitted = lr->getIsSplittedDcl();
++    bool is_split = lr->getIsSplittedDcl();
+     unsigned n = 0;
+ 
+     // For none partial varaible, interference with all varaibles
+@@ -1770,7 +1770,7 @@ void Interference::buildInterferenceWithLive(const SparseBitSet& live, unsigned
+ 
+     unsigned start_idx = 0;
+     unsigned end_idx = 0;
+-    if (is_splitted) //if current is splitted dcl, don't interference with all its child nodes.
++    if (is_split) //if current is split dcl, don't interference with all its child nodes.
+     {
+         start_idx = lr->getDcl()->getSplitVarStartID();
+         end_idx = start_idx + gra.getSplitVarNum(lr->getDcl());
+@@ -1792,7 +1792,7 @@ void Interference::buildInterferenceWithLive(const SparseBitSet& live, unsigned
+ 
+         if (elt != 0)
+         {
+-            if (is_partial || is_splitted)
++            if (is_partial || is_split)
+             {
+                 filterSplitDclares(start_idx, end_idx, n, k, elt, is_partial);
+             }
+@@ -1810,7 +1810,7 @@ void Interference::buildInterferenceWithLive(const SparseBitSet& live, unsigned
+ 
+     // Set dword at transition point from column to row
+     unsigned elt = live.getElt(colEnd);
+-    //checkAndSetIntf guarantee partial and splitted cases
++    //checkAndSetIntf guarantee partial and split cases
+     if (elt != 0)
+     {
+         for (unsigned j = 0; j < BITS_DWORD; j++)
+@@ -1832,7 +1832,7 @@ void Interference::buildInterferenceWithLive(const SparseBitSet& live, unsigned
+     {
+         unsigned elt = live.getElt(k);
+ 
+-        if (is_partial || is_splitted)
++        if (is_partial || is_split)
+         {
+             filterSplitDclares(start_idx, end_idx, n, k, elt, is_partial);
+         }
+@@ -4978,7 +4978,7 @@ void Augmentation::buildSIMDIntfDcl(G4_Declare* newDcl, bool isCall)
+             // r[A0] = ...
+             // (W) Spill ADD_SP_FL_1
+             //
+-            // ADDR_SP_FL_1 and FL_V10 shouldnt interfere. Without logic below, they would
++            // ADDR_SP_FL_1 and FL_V10 shouldn't interfere. Without logic below, they would
+             // interfere making RA results worse.
+ 
+             auto regVar1 = nonDefaultDcl->getRegVar();
+@@ -5001,10 +5001,10 @@ void Augmentation::buildSIMDIntfDcl(G4_Declare* newDcl, bool isCall)
+             //
+             // = V1
+             //
+-            // In above example, V1 doesnt interfere with V2 as per scalar liveness but it
++            // In above example, V1 doesn't interfere with V2 as per scalar liveness but it
+             // should if the branch were divergent. For correctness we need to mark V1 and
+             // V2 as interfering. Since they're never live together as per scalar liveness,
+-            // they need to be handled in augmentation. This case shouldnt occur for RA tmps
++            // they need to be handled in augmentation. This case shouldn't occur for RA tmps
+             // as RA generated spill/fill tmps are transient and never live-out of any BB.
+             // Still adding check to be safe.
+ 
+@@ -5507,7 +5507,7 @@ void Interference::buildInterferenceWithLocalRA(G4_BB* bb)
+ #endif
+                     }
+ 
+-                    // Build interference only for point ranges, ideally which shouldnt exist
++                    // Build interference only for point ranges, ideally which shouldn't exist
+                     // These are ranges that have a def, but no use
+                     if (localLR->getFirstRef(t) == localLR->getLastRef(t))
+                     {
+@@ -6124,7 +6124,7 @@ void GraphColor::computeSpillCosts(bool useSplitLLRHeuristic)
+         auto& addrTakenMap = const_cast<PointsToAnalysis&>(liveAnalysis.getPointsToAnalysis()).getPointsToMap();
+         auto& revAddrTakenMap = const_cast<PointsToAnalysis&>(liveAnalysis.getPointsToAnalysis()).getRevPointsToMap();
+ 
+-        // this condition is a safety measure and isnt expected to be true.
++        // this condition is a safety measure and isn't expected to be true.
+         auto it = revAddrTakenMap.find(lr->getDcl());
+         if(it == revAddrTakenMap.end())
+             return true;
+@@ -6913,7 +6913,7 @@ bool GraphColor::assignColors(ColorHeuristic colorHeuristicGRF, bool doBankConfl
+                 }
+             }
+ 
+-            // if all children are assigned consecutive GRFs but parent isnt
++            // if all children are assigned consecutive GRFs but parent isn't
+             // then try re-assigning parent
+             if (varSplitPass.isPartialDcl(lr->getDcl()) &&
+                 varSplitPass.reallocParent(lr->getDcl(), getLiveRanges()))
+@@ -6928,7 +6928,7 @@ bool GraphColor::assignColors(ColorHeuristic colorHeuristicGRF, bool doBankConfl
+                 assignColor(parentLR, true, !isParentSpilled);
+                 // If parent's assigned GRF is non-coalesceable assignment then
+                 // undo it as it is risky to keep this because parent's intf
+-                // doesnt include children.
++                // doesn't include children.
+                 auto newParentAssignment = parentLR->getPhyReg();
+                 if ((newParentAssignment && newParentAssignment->asGreg()->getRegNum() != parentLR->getAllocHint()) ||
+                     !newParentAssignment)
+@@ -9251,7 +9251,7 @@ VarRange* VarSplit::splitVarRange(VarRange *src1,
+ {
+     VarRange * new_var_range = nullptr;
+ 
+-    ASSERT_USER(!(src1->leftBound == src2->leftBound && src1->rightBound == src2->rightBound), "Same ranges can not be spiltted");
++    ASSERT_USER(!(src1->leftBound == src2->leftBound && src1->rightBound == src2->rightBound), "Same ranges can not be split");
+ 
+     if (src1->leftBound > src2->rightBound ||
+         src1->rightBound < src2->leftBound)  //No overlap
+@@ -9301,7 +9301,7 @@ VarRange* VarSplit::splitVarRange(VarRange *src1,
+ // Scan the range list, Insert the new range into the range list.
+ // Range splitting is applied if required.
+ //
+-void VarSplit::rangeListSpliting(VAR_RANGE_LIST *rangeList, G4_Operand *opnd, std::stack<VarRange*> *toDelete)
++void VarSplit::rangeListSplitting(VAR_RANGE_LIST *rangeList, G4_Operand *opnd, std::stack<VarRange*> *toDelete)
+ {
+     VarRange *range = new VarRange;
+     range->leftBound = opnd->getLeftBound();
+@@ -9324,7 +9324,7 @@ void VarSplit::rangeListSpliting(VAR_RANGE_LIST *rangeList, G4_Operand *opnd, st
+         {
+             //The range item in the list is on the right of current range, insert it before the postion.
+             //Since the whole range is inserted first, all the ranges should be continuous.
+-            ASSERT_USER((*it)->leftBound - range->rightBound == 1, "none continuous spliting happened\n");
++            ASSERT_USER((*it)->leftBound - range->rightBound == 1, "none continuous splitting happened\n");
+             rangeList->insert(it, range);
+             return;
+         }
+@@ -9782,7 +9782,7 @@ void VarSplit::localSplit(IR_Builder& builder,
+                 }
+                 else
+                 {
+-                    rangeListSpliting(&(varRanges[topdcl->getRegVar()].list), dstrgn, &toDelete);
++                    rangeListSplitting(&(varRanges[topdcl->getRegVar()].list), dstrgn, &toDelete);
+                 }
+ 
+                 localRanges[topdcl->getRegVar()].emplace_back(dst, iterToInsert);  // Ordered from back to front.
+@@ -9828,7 +9828,7 @@ void VarSplit::localSplit(IR_Builder& builder,
+                         varRanges[topdcl->getRegVar()].list.push_back(new_range);
+                     }
+ 
+-                    rangeListSpliting(&(varRanges[topdcl->getRegVar()].list), src, &toDelete);
++                    rangeListSplitting(&(varRanges[topdcl->getRegVar()].list), src, &toDelete);
+ 
+                     localRanges[topdcl->getRegVar()].emplace_back(src, iterToInsert);  // Ordered from back to front.
+                 }
+@@ -11046,7 +11046,7 @@ int GlobalRA::coloringRegAlloc()
+             kernel.getGTPinData()->setScratchNextFree(scratchAllocation - kernel.getGTPinData()->getNumBytesScratchUse());
+         }
+         else {
+-            // stack call functions shouldnt report any scratch usage as it is
++            // stack call functions shouldn't report any scratch usage as it is
+             // kernel's responsibility to account for stack usage of entire call
+             // tree.
+             if (!kernel.fg.getIsStackCallFunc())
+@@ -12407,7 +12407,7 @@ void GraphColor::dumpRegisterPressure()
+ void GlobalRA::fixAlignment()
+ {
+     // Copy over alignment from G4_RegVar to GlobalRA instance
+-    // Rest of RA shouldnt have to read/modify alignment of G4_RegVar
++    // Rest of RA shouldn't have to read/modify alignment of G4_RegVar
+     copyAlignment();
+ 
+     for (auto dcl : kernel.Declares)
+@@ -13749,7 +13749,7 @@ void LiveRange::setAllocHint(unsigned h)
+ // sortedIntervals comes from augmentation.
+ // This can be invoked either post RA where phy regs are assigned to dcls,
+ // or after assignColors with lrs and numLRs passed which makes this function
+-// use temp allocations from lrs. Doesnt handle sub-routines yet.
++// use temp allocations from lrs. Doesn't handle sub-routines yet.
+ void RegChartDump::dumpRegChart(std::ostream& os, LiveRange** lrs, unsigned numLRs)
+ {
+     constexpr unsigned N = 128;
+diff --git a/visa/GraphColor.h b/visa/GraphColor.h
+index df114cfc3..91ac295c3 100644
+--- a/visa/GraphColor.h
++++ b/visa/GraphColor.h
+@@ -625,7 +625,7 @@ namespace vISA
+     {
+         unsigned numSplit = 0;
+         unsigned bb_id = UINT_MAX;      // block local variable's block id.
+-        G4_Declare* splittedDCL = nullptr;
++        G4_Declare* splitDCL = nullptr;
+         LocalLiveRange* localLR = nullptr;
+         LSLiveRange* LSLR = nullptr;
+         unsigned numRefs = 0;
+@@ -761,7 +761,7 @@ namespace vISA
+         // map ret location to declare for call/ret
+         std::map<uint32_t, G4_Declare*> retDecls;
+ 
+-        // store instructions that shouldnt be rematerialized.
++        // store instructions that shouldn't be rematerialized.
+         std::unordered_set<G4_INST*> dontRemat;
+ 
+         RAVarInfo &allocVar(const G4_Declare* dcl)
+@@ -938,12 +938,12 @@ namespace vISA
+ 
+         G4_Declare* getSplittedDeclare(const G4_Declare* dcl) const
+         {
+-            return getVar(dcl).splittedDCL;
++            return getVar(dcl).splitDCL;
+         }
+ 
+         void setSplittedDeclare(const G4_Declare* dcl, G4_Declare* sd)
+         {
+-            allocVar(dcl).splittedDCL = sd;
++            allocVar(dcl).splitDCL = sd;
+         }
+ 
+         LocalLiveRange* getLocalLR(const G4_Declare* dcl) const
+@@ -1323,7 +1323,7 @@ namespace vISA
+         GlobalRA& gra;
+ 
+         VarRange* splitVarRange(VarRange *src1, VarRange *src2, std::stack<VarRange*> *toDelete);
+-        void rangeListSpliting(VAR_RANGE_LIST *rangeList, G4_Operand *opnd, std::stack<VarRange*> *toDelete);
++        void rangeListSplitting(VAR_RANGE_LIST *rangeList, G4_Operand *opnd, std::stack<VarRange*> *toDelete);
+         void getHeightWidth(G4_Type type, unsigned numberElements, unsigned short &dclWidth, unsigned short &dclHeight, int &totalByteSize) const;
+         void createSubDcls(G4_Kernel& kernel, G4_Declare* oldDcl, std::vector<G4_Declare*> &splitDclList);
+         void insertMovesToTemp(IR_Builder& builder, G4_Declare* oldDcl, G4_Operand *dstOpnd, G4_BB* bb, INST_LIST_ITER instIter, std::vector<G4_Declare*> &splitDclList);
+diff --git a/visa/HWCaps.inc b/visa/HWCaps.inc
+index 9f5abf507..7a4da4d30 100644
+--- a/visa/HWCaps.inc
++++ b/visa/HWCaps.inc
+@@ -932,13 +932,13 @@ SPDX-License-Identifier: MIT
+        return false;
+     }
+ 
+-    bool hasDpasSrc2ReadSupression() const
++    bool hasDpasSrc2ReadSuppression() const
+     {
+         return getPlatform() >= Xe_PVCXT;
+     }
+ 
+ 
+-    bool hasDpasSrc2ReadSupressionSameRegSameType() const
++    bool hasDpasSrc2ReadSuppressionSameRegSameType() const
+     {
+         return getPlatform() == Xe_PVC && !getOption(vISA_HasPartialInt64);
+     }
+diff --git a/visa/HWConformity.cpp b/visa/HWConformity.cpp
+index 5fc189d15..47e0cecf3 100644
+--- a/visa/HWConformity.cpp
++++ b/visa/HWConformity.cpp
+@@ -6352,7 +6352,7 @@ void HWConformity::fixBFMixedMode()
+             //      1. If an inst, which don't support BF, has BF operands. Those BF operands
+             //         must be replaced with F operands (by inserting mov to convert BF to F).
+             //         If replacing a BF operand with a F operand makes it cross 2 GRF, it must
+-            //         be splitted (currES * F" > 2 GRF); or
++            //         be split (currES * F" > 2 GRF); or
+             //      2. Split if currES > nativeES for insts that support BF. (case 7)
+             std::list<INST_LIST_ITER> instsToCheck;
+             if ((!isBFAllowedInst && (TypeSize(Type_F) * currES) > (builder.getGRFSize() * 2))
+diff --git a/visa/LocalRA.cpp b/visa/LocalRA.cpp
+index a152faaed..2d30b5fbb 100644
+--- a/visa/LocalRA.cpp
++++ b/visa/LocalRA.cpp
+@@ -438,7 +438,7 @@ bool LocalRA::localRA()
+     bool reduceBCInTAandFF = false;
+     bool needGlobalRA = true;
+ 
+-    doSplitLLR = (builder.getOption(vISA_SpiltLLR) &&
++    doSplitLLR = (builder.getOption(vISA_SplitLLR) &&
+         kernel.fg.size() == 1 &&
+         kernel.getInt32KernelAttr(Attributes::ATTR_Target) == VISA_3D);
+ 
+@@ -1001,7 +1001,7 @@ bool LocalRA::assignUniqueRegisters(bool twoBanksRA, bool twoDirectionsAssign, b
+                     updateDebugInfo(kernel, dcl, start, end);
+                 }
+ 
+-                // unallocatedRanges doesnt contain input dcls
++                // unallocatedRanges doesn't contain input dcls
+                 for (auto dcl : kernel.Declares)
+                 {
+                     if (dcl->isInput())
+@@ -3225,7 +3225,7 @@ void LinearScan::coalesceSplit(LocalLiveRange* lr)
+         }
+     }
+ 
+-    // now free phy regs of split that dont have an intrinsic split emitted, ie unused
++    // now free phy regs of split that don't have an intrinsic split emitted, ie unused
+     // rows of parent dcl.
+     unsigned int idx;
+     lr->getFirstRef(idx);
+diff --git a/visa/LocalScheduler/SWSB_G4IR.cpp b/visa/LocalScheduler/SWSB_G4IR.cpp
+index f6e3f4d2b..7d58f996a 100644
+--- a/visa/LocalScheduler/SWSB_G4IR.cpp
++++ b/visa/LocalScheduler/SWSB_G4IR.cpp
+@@ -5329,7 +5329,7 @@ unsigned short G4_BB_SB::getDpasSrcCacheSize(Gen4_Operand_Number opNum) const
+         return 512;
+     }
+     if (opNum == Gen4_Operand_Number::Opnd_src2) {
+-        if (builder.hasDpasSrc2ReadSupression())
++        if (builder.hasDpasSrc2ReadSuppression())
+             return 1024;
+     }
+     return 0;
+@@ -5452,8 +5452,8 @@ bool G4_BB_SB::isLastDpas(SBNode* curNode, SBNode* nextNode)
+         }
+     }
+ 
+-    if (builder.hasDpasSrc2ReadSupression() &&
+-        builder.hasDpasSrc2ReadSupressionSameRegSameType() &&
++    if (builder.hasDpasSrc2ReadSuppression() &&
++        builder.hasDpasSrc2ReadSuppressionSameRegSameType() &&
+         src2SameFootPrintDiffType(curNode, nextNode))
+     {
+         return true;
+@@ -5490,7 +5490,7 @@ bool G4_BB_SB::isLastDpas(SBNode* curNode, SBNode* nextNode)
+         return false;
+     };
+ 
+-    if (builder.hasDpasSrc2ReadSupression() &&
++    if (builder.hasDpasSrc2ReadSuppression() &&
+         curC == nextC &&
+         curC == 8 &&
+         !isDFInst(*nextDpasInst) &&
+diff --git a/visa/LoopAnalysis.cpp b/visa/LoopAnalysis.cpp
+index 8a76bae6c..bb2d870e0 100644
+--- a/visa/LoopAnalysis.cpp
++++ b/visa/LoopAnalysis.cpp
+@@ -493,7 +493,7 @@ Loop* Loop::getInnerMostLoop(const G4_BB* bb)
+ {
+     // if current loop contains bb, recurse loop tree and return
+     // most nested loop containing it.
+-    // if current loop doesnt contain bb then return nullptr.
++    // if current loop doesn't contain bb then return nullptr.
+     if (!contains(bb))
+         return nullptr;
+ 
+@@ -601,7 +601,7 @@ G4_BB* LoopDetection::getPreheader(Loop* loop)
+                 if (jipStr == headerLblStr ||
+                     uipStr == headerLblStr)
+                 {
+-                    // dont create preheader for this loop as a predecessor
++                    // don't create preheader for this loop as a predecessor
+                     // of header has SIMD CF in to loop header.
+                     return nullptr;
+                 }
+diff --git a/visa/Optimizer.cpp b/visa/Optimizer.cpp
+index 482512bbb..2a3acb257 100644
+--- a/visa/Optimizer.cpp
++++ b/visa/Optimizer.cpp
+@@ -154,7 +154,7 @@ void Optimizer::regAlloc()
+ 
+     // realR0 and BuiltInR0 are 2 different dcls.
+     // realR0 is always tied to physical r0.
+-    // if copy of r0 isnt needed then set latter to r0 as well.
++    // if copy of r0 isn't needed then set latter to r0 as well.
+     // if copy of r0 is required, then let RA decide allocation of BuiltInR0.
+     if (!R0CopyNeeded())
+     {
+@@ -2221,7 +2221,7 @@ int Optimizer::optimization()
+ //  converted to an if. Instead of creating a BB for each of the endif, we associate each endif with a label
+ //  and emit them only at the very end.
+ //
+-//  For break and continue, UIP must be the lable directly attached to the while
++//  For break and continue, UIP must be the label directly attached to the while
+ //  op. If not, create such a label
+ //
+ //  DO
+@@ -2863,7 +2863,7 @@ static bool canHoist(FlowGraph &fg, G4_BB *bb, INST_LIST_RITER revIter)
+             Dcl->getRegVar() &&
+             Dcl->getRegVar()->getPhyReg())
+         {
+-            // Dont def-hoist if dst is hardwired to address register.
++            // Don't def-hoist if dst is hardwired to address register.
+             // Doing so extends live-range of assigned register a0.
+             // Given that the machine has single addr register, a0,
+             // it may even cause address RA to fail due to uncolorable
+@@ -9226,7 +9226,7 @@ bool Optimizer::foldPseudoAndOr(G4_BB* bb, INST_LIST_ITER& ii)
+ 
+         if (!kernel.fg.builder->getIsKernel())
+         {
+-            // we dont allow a function to exit
++            // we don't allow a function to exit
+             return;
+         }
+ 
+@@ -9240,7 +9240,7 @@ bool Optimizer::foldPseudoAndOr(G4_BB* bb, INST_LIST_ITER& ii)
+             if (bb->isEndWithFCall())
+             {
+                 // conservatively assume we need a fence
+-                // ToDo: we don't need a SLM fence if kernel doesnt use SLM, since function can't allocate SLM on its own
++                // ToDo: we don't need a SLM fence if kernel doesn't use SLM, since function can't allocate SLM on its own
+                 // We can move this W/A to IGC for more precise analysis
+                 hasUAVWrites = true;
+                 hasSLMWrites = true;
+@@ -11285,10 +11285,10 @@ static bool isCandidateDecl(G4_Declare *Dcl, const IR_Builder& builder)
+ 
+ // Associated declarations for splitting.
+ struct DclMapInfo {
+-    // The low part of the splitted variable.
++    // The low part of the split variable.
+     G4_Declare *DclLow;
+ 
+-    // The high part of the splitted variable.
++    // The high part of the split variable.
+     G4_Declare *DclHigh;
+ 
+     // Aliases of the low part. Created if needed for different types.
+diff --git a/visa/Option.cpp b/visa/Option.cpp
+index a4180cb85..d4834ea4d 100644
+--- a/visa/Option.cpp
++++ b/visa/Option.cpp
+@@ -222,7 +222,7 @@ bool Options::parseOptions(int argc, const char* argv[])
+         m_vISAOptions.setBool(vISA_LocalRARoundRobin, false);
+         m_vISAOptions.setBool(vISA_LocalBankConflictReduction, false);
+         m_vISAOptions.setBool(vISA_RoundRobin, false);
+-        m_vISAOptions.setBool(vISA_SpiltLLR, false);
++        m_vISAOptions.setBool(vISA_SplitLLR, false);
+         m_vISAOptions.setBool(vISA_preRA_Schedule, false);
+         m_vISAOptions.setBool(vISA_SplitGRFAlignedScalar, false);
+         m_vISAOptions.setBool(vISA_SkipRedundantFillInRMW, false);
+diff --git a/visa/Passes/LVN.cpp b/visa/Passes/LVN.cpp
+index adeee524c..520982137 100644
+--- a/visa/Passes/LVN.cpp
++++ b/visa/Passes/LVN.cpp
+@@ -948,7 +948,7 @@ LVNItemInfo* LVN::getOpndValue(G4_Operand* opnd, bool create)
+ 
+     if (create)
+     {
+-        // create instance of LVNItemInfo since it doesnt exist
++        // create instance of LVNItemInfo since it doesn't exist
+         LVNItemInfo* item = createLVNItemInfo();
+         item->constHStride = isSingleStride;
+         item->hstride = hs;
+@@ -1826,7 +1826,7 @@ void LVN::populateDuTable(INST_LIST_ITER inst_it)
+                     // in activeDefs table. Inst 2 is not an LVN candidate but
+                     // it clobbers def of inst 1, hence we have to insert it in
+                     // the LVN table too. If first instruction wasnt an LVN
+-                    // candidate by itself, we wouldnt insert it or inst 2 in
++                    // candidate by itself, we wouldn't insert it or inst 2 in
+                     // active def table.
+                     ActiveDef newActiveDef;
+                     newActiveDef.first = curDstTopDcl;
+@@ -1914,7 +1914,7 @@ void LVN::doLVN()
+                 // Check if value exists in table
+                 lvnItem = isValueInTable(value, false);
+ 
+-                // If value doesnt exist, search for value's
++                // If value doesn't exist, search for value's
+                 // negative representation (only for imm).
+ 
+                 if (canNegate &&
+diff --git a/visa/PhyRegUsage.cpp b/visa/PhyRegUsage.cpp
+index 8f3a259ac..912aad7aa 100644
+--- a/visa/PhyRegUsage.cpp
++++ b/visa/PhyRegUsage.cpp
+@@ -938,7 +938,7 @@ PhyRegUsage::PhyReg PhyRegUsage::findGRFSubReg(const bool forbidden[],
+             {
+                 if (phyReg.reg == -1)
+                 {
+-                    // favor partially allocated GRF first so dont
++                    // favor partially allocated GRF first so don't
+                     // return this assignment yet
+                     phyReg.reg = idx;
+                     phyReg.subreg = 0;
+diff --git a/visa/RPE.h b/visa/RPE.h
+index 387a4b019..613fbd9f3 100644
+--- a/visa/RPE.h
++++ b/visa/RPE.h
+@@ -57,7 +57,7 @@ namespace vISA
+         const Options* options;
+         SparseBitSet live;
+         const std::vector<G4_RegVar*>& vars;
+-        // Variables part of spilledVars set dont contribute to
++        // Variables part of spilledVars set don't contribute to
+         // program register pressure. This is useful to model
+         // register pressure immediately after coloring (spill
+         // iteration).
+diff --git a/visa/RegAlloc.cpp b/visa/RegAlloc.cpp
+index 5f0e9fa06..ec48b15b3 100644
+--- a/visa/RegAlloc.cpp
++++ b/visa/RegAlloc.cpp
+@@ -511,7 +511,7 @@ bool LivenessAnalysis::setGlobalVarIDs(bool verifyRA, bool areAllPhyRegAssigned)
+     {
+         if (!isLocalVar(decl))
+         {
+-            /* Note that we only do local split, so there is no need to handle partial declare and splitted declare */
++            /* Note that we only do local split, so there is no need to handle partial declare and split declare */
+             if (livenessCandidate(decl, verifyRA) && decl->getAliasDeclare() == NULL)
+             {
+                 decl->getRegVar()->setId(numGlobalVarId++);
+@@ -2041,7 +2041,7 @@ void LivenessAnalysis::computeGenKillandPseudoKill(G4_BB* bb,
+                     while ((grf = pointsToAnalysis.getPointsTo(topdcl->getRegVar(), idx++)) != NULL)
+                     {
+                         // grf is a variable that src potentially points to
+-                        // since we dont know exactly which part of grf is sourced
++                        // since we don't know exactly which part of grf is sourced
+                         // assume entire grf is sourced
+                         // Also add grf to the gen set as it may be potentially used
+                         unsigned int id = grf->getId();
+@@ -2191,7 +2191,7 @@ void LivenessAnalysis::computeGenKillandPseudoKill(G4_BB* bb,
+                     topdclLR->isLiveRangeLocal() &&
+                     (!topdcl->isInput()) &&
+                     topdclLR->getFirstRef(first) == i)) &&
+-                    // If single inst writes whole region then dont insert pseudo_kill
++                    // If single inst writes whole region then don't insert pseudo_kill
+                     writeWholeRegion(bb, i, dst, fg.builder->getOptions()) == false)
+                 {
+                     bool foundKill = false;
+@@ -2255,7 +2255,7 @@ void LivenessAnalysis::computeGenKillandPseudoKill(G4_BB* bb,
+                     (topdclLR = gra.getLocalLR(topdcl)) &&
+                         topdclLR->isLiveRangeLocal() &&
+                         topdclLR->getFirstRef(first) == i)) &&
+-                        // If single inst writes whole region then dont insert pseudo_kill
++                        // If single inst writes whole region then don't insert pseudo_kill
+                         writeWholeRegion(bb, i, flagReg) == false)
+                 {
+                     // All bytes of dst written at this point, so this is a good place to insert
+diff --git a/visa/Rematerialization.cpp b/visa/Rematerialization.cpp
+index 31a4a2e40..92b5143a1 100644
+--- a/visa/Rematerialization.cpp
++++ b/visa/Rematerialization.cpp
+@@ -670,7 +670,7 @@ namespace vISA
+             // is marked as spill, so remat will
+             // benefit it. Otherwise, if var has a
+             // single use within the loop then remat
+-            // can be done as it doesnt contribute to
++            // can be done as it doesn't contribute to
+             // increase in inst count.
+             if (!srcDclSpilled && refs.numUses > 1)
+                 return false;
+diff --git a/visa/SpillCleanup.cpp b/visa/SpillCleanup.cpp
+index 48027a918..f6a42ea26 100644
+--- a/visa/SpillCleanup.cpp
++++ b/visa/SpillCleanup.cpp
+@@ -369,7 +369,7 @@ bool CoalesceSpillFills::fillHeuristic(std::list<INST_LIST_ITER>& coalesceableFi
+         {
+             if (r.second.test(i) == false)
+             {
+-                // Found a row of variable that isnt captured in
++                // Found a row of variable that isn't captured in
+                 // list of candidate fills.
+                 return false;
+             }
+@@ -578,7 +578,7 @@ void CoalesceSpillFills::keepConsecutiveSpills(std::list<INST_LIST_ITER>& instLi
+ 
+     if (useNoMask)
+     {
+-        // Spill coalescing doesnt work as expected without NoMask
++        // Spill coalescing doesn't work as expected without NoMask
+         bool redo;
+         do
+         {
+@@ -819,7 +819,7 @@ INST_LIST_ITER CoalesceSpillFills::analyzeFillCoalescing(std::list<INST_LIST_ITE
+         instList = origInstList;
+         instList.pop_front();
+ #if 0
+-        printf("Fill heuristic didnt agree to coalescing\n");
++        printf("Fill heuristic didn't agree to coalescing\n");
+ #endif
+     }
+ 
+@@ -1731,7 +1731,7 @@ void CoalesceSpillFills::spillFillCleanup()
+             auto RP = rpe.getRegisterPressure(inst);
+             // spill code is inserted after coloring is complete. so newly generated
+             // spill instructions would not have valid register pressure estimate.
+-            // in case current instruction doesnt have valid register pressure estimate,
++            // in case current instruction doesn't have valid register pressure estimate,
+             // use a valid one from an earlier instruction.
+             regPressure = (RP > 0) ? RP : regPressure;
+ 
+diff --git a/visa/SpillCode.cpp b/visa/SpillCode.cpp
+index 2d89fd365..f7ee33f2a 100644
+--- a/visa/SpillCode.cpp
++++ b/visa/SpillCode.cpp
+@@ -560,13 +560,13 @@ void SpillManager::updateRMWNeeded()
+         return false;
+     };
+ 
+-    // update rmw set if opnd is spilled, nop if opnd isnt spilled.
++    // update rmw set if opnd is spilled, nop if opnd isn't spilled.
+     auto updateRMW = [&](G4_BB* bb, G4_Operand* opnd)
+     {
+         auto RMW_Needed = isRMWNeededForSpill(bb, opnd);
+         if (!RMW_Needed)
+         {
+-            // Any spilled dst region that doesnt need RMW
++            // Any spilled dst region that doesn't need RMW
+             // is added to noRMWNeeded set. This set is later
+             // checked when inserting spill/fill code.
+             noRMWNeeded.insert(opnd);
+diff --git a/visa/SpillCode.h b/visa/SpillCode.h
+index 5ce03cb08..ab0f2dc30 100644
+--- a/visa/SpillCode.h
++++ b/visa/SpillCode.h
+@@ -47,7 +47,7 @@ class SpillManager
+ 
+     unsigned int currCISAOffset;
+ 
+-    // store spilled operands that dont need RMW for spills
++    // store spilled operands that don't need RMW for spills
+     std::unordered_set<G4_Operand*> noRMWNeeded;
+ 
+     void genRegMov(G4_BB* bb,
+diff --git a/visa/SpillManagerGMRF.cpp b/visa/SpillManagerGMRF.cpp
+index f8a236ad4..469ea5fdb 100644
+--- a/visa/SpillManagerGMRF.cpp
++++ b/visa/SpillManagerGMRF.cpp
+@@ -2816,7 +2816,7 @@ G4_SrcRegRegion *SpillManagerGRF::getLSCSpillFillHeader(
+ // Create the send instruction to perform the spill of the spilled regvars's
+ // segment into spill memory.
+ //
+-// regOff - Offset of sub-spill. If one spill is splitted into more than one spill,
++// regOff - Offset of sub-spill. If one spill is split into more than one spill,
+ // this is the offset of them, unit in register size
+ // spillOff - Offset of the original variable being spilled, unit in register size.
+ G4_INST * SpillManagerGRF::createLSCSpill(
+@@ -3172,7 +3172,7 @@ bool SpillManagerGRF::checkUniqueDefAligned(G4_DstRegRegion* dst, G4_BB* defBB)
+ 
+ // This function checks whether each spill dst region requires a read-modify-write operation
+ // when inserting spill code. Dominator/unique defs don't require redundant read operation.
+-// Dst regions that do not need RMW are added to a set. This functionality isnt needed for
++// Dst regions that do not need RMW are added to a set. This functionality isn't needed for
+ // functional correctness. This function is executed before inserting spill code because
+ // we need all dst regions of dcl available to decide whether read is redundant. If this is
+ // executed when inserting spill then dst regions of dcl appearing earlier than current one
+@@ -3234,7 +3234,7 @@ void SpillManagerGRF::updateRMWNeeded()
+                             auto RMW_Needed = isRMWNeededForSpilledDst(bb, dst);
+                             if (!RMW_Needed)
+                             {
+-                                // Any spilled dst region that doesnt need RMW
++                                // Any spilled dst region that doesn't need RMW
+                                 // is added to noRMWNeeded set. This set is later
+                                 // checked when inserting spill/fill code.
+                                 noRMWNeeded.insert(dst);
+@@ -3385,8 +3385,8 @@ void SpillManagerGRF::insertSpillRangeCode(
+             // 3. both are false
+             //
+             // Case (1) occurs when:
+-            // Def uses dword type and writes entire row. But def doesnt define
+-            // complete variable, ie it isnt a kill. For such cases, we need to
++            // Def uses dword type and writes entire row. But def doesn't define
++            // complete variable, ie it isn't a kill. For such cases, we need to
+             // use def's EM on spill msg.
+             //
+             // Case (2) occurs when:
+@@ -3493,7 +3493,7 @@ void SpillManagerGRF::insertSpillRangeCode(
+                 {
+                     // srcRegion is a split var temp
+                     // this is a copy in either preheader or loop exit.
+-                    // add it to list so we know it shouldnt be optimized
++                    // add it to list so we know it shouldn't be optimized
+                     // by spill cleanup.
+                     for (auto addedInst : builder_->instList)
+                     {
+@@ -3612,7 +3612,7 @@ void SpillManagerGRF::insertFillGRFRangeCode(
+                 {
+                     // dstRegion is a split var temp
+                     // this is a copy in either preheader or loop exit.
+-                    // add it to list so we know it shouldnt be optimized
++                    // add it to list so we know it shouldn't be optimized
+                     // by spill cleanup.
+                     for (auto addedInst : builder_->instList)
+                     {
+diff --git a/visa/SplitAlignedScalars.cpp b/visa/SplitAlignedScalars.cpp
+index 6f02c1508..054686527 100644
+--- a/visa/SplitAlignedScalars.cpp
++++ b/visa/SplitAlignedScalars.cpp
+@@ -293,7 +293,7 @@ void SplitAlignedScalars::pruneCandidates(std::vector<G4_Declare*>& candidates)
+             isCandidate = true;
+         else
+         {
+-            // Mark as candidate for splitting only if doing so doesnt increase mov count above
++            // Mark as candidate for splitting only if doing so doesn't increase mov count above
+             // a set threshold.
+             if ((totalMovsNeeded + numMovsNeeded) < (unsigned int)(((float)estimatedInstCount * BloatAllowed)))
+                 isCandidate = true;
+@@ -512,7 +512,7 @@ void SplitAlignedScalars::run()
+                             gra.addEUFusionNoMaskWAInst(bb, copy);
+                         }
+ 
+-                        // this copy shouldnt be rematerialized
++                        // this copy shouldn't be rematerialized
+                         gra.addNoRemat(copy);
+ 
+                         numMovsAdded++;
+diff --git a/visa/VISAKernelImpl.cpp b/visa/VISAKernelImpl.cpp
+index 69f760e26..97697d823 100644
+--- a/visa/VISAKernelImpl.cpp
++++ b/visa/VISAKernelImpl.cpp
+@@ -9372,7 +9372,7 @@ void VISAKernelImpl::computeFCInfo(BinaryEncodingBase* binEncodingInstance)
+ 
+     if (isFCCallerKernel() == false && isFCCallableKernel() == false)
+     {
+-        // No need to do anything since the kernel doesnt
++        // No need to do anything since the kernel doesn't
+         // have any FC calls.
+         return;
+     }
+@@ -9446,7 +9446,7 @@ void VISAKernelImpl::computeFCInfo() {
+     IR_Builder* builder = getIRBuilder();
+ 
+     if (isFCCallerKernel() == false && isFCCallableKernel() == false) {
+-        // No need to do anything since the kernel doesnt
++        // No need to do anything since the kernel doesn't
+         // have any FC calls.
+         return;
+     }
+diff --git a/visa/VarSplit.cpp b/visa/VarSplit.cpp
+index 87360a605..8ecbb4040 100644
+--- a/visa/VarSplit.cpp
++++ b/visa/VarSplit.cpp
+@@ -301,7 +301,7 @@ void VarSplitPass::findSplitCandidates()
+                 if (dcl->getNumRows() < 2)
+                     continue;
+ 
+-                // It is possible that splitVars map doesnt have an entry for dcl
++                // It is possible that splitVars map doesn't have an entry for dcl
+                 // yet as in CFG, a use may appear lexically earlier than its def.
+                 auto& prop = splitVars[dcl];
+                 prop.srcs.push_back(std::make_pair(srcRgn,bb));
+@@ -859,7 +859,7 @@ void VarSplitPass::undo(G4_Declare* parentDcl)
+ bool VarSplitPass::reallocParent(G4_Declare* child, LiveRange** lrs)
+ {
+     // Given a child, lookup all siblings. If all children
+-    // are assigned consecutive GRFs but parent isnt then
++    // are assigned consecutive GRFs but parent isn't then
+     // return true.
+     bool ret = true;
+ 
+@@ -1096,7 +1096,7 @@ void LoopVarSplit::removeAllSplitInsts(GlobalRA* gra, G4_Declare* dcl)
+     // for dcl from pre-header and loop exits.
+     // this method is invoked when a split dcl is spilled.
+     MUST_BE_TRUE(gra->splitResults.find(dcl) != gra->splitResults.end(),
+-        "didnt find split result");
++        "didn't find split result");
+     auto& bbs = gra->splitResults[dcl].insts;
+     for (auto& bb : bbs)
+     {
+@@ -1438,7 +1438,7 @@ G4_Declare* LoopVarSplit::getNewDcl(G4_Declare* dcl1, G4_Declare* dcl2, const Lo
+     // say V9's split dcl is called LOOP_SPLIT_V9.
+     // so in this function we create a new dcl, LOOP_SPLIT_V10 that
+     // aliases LOOP_SPLIT_V9 exactly like V10 aliases V9. this
+-    // way we dont need any complicated logic to flatten V10.
++    // way we don't need any complicated logic to flatten V10.
+     //
+     // dcl1 is a dcl used to construct some src or dst rgn.
+     // dcl2 is a new dcl that splits dcl1. dcl2 is always root dcl.
+@@ -1577,7 +1577,7 @@ std::vector<Loop*> LoopVarSplit::getLoopsToSplitAround(G4_Declare* dcl)
+         // apply cost heuristic
+         if (dcl->getNumElems() == 1 && subRegAlign != coloring->getGRA().kernel.fg.builder->getGRFAlign())
+         {
+-            // unaligned scalars can be packed so dont adjust loop pressure for each unaligned scalar.
++            // unaligned scalars can be packed so don't adjust loop pressure for each unaligned scalar.
+             // we may not be able to trivially pack aligned scalars so use other branch to handle them.
+             if (getMaxRegPressureInLoop(*loop) < (unsigned int)(1.0f * (float)kernel.getNumRegTotal()))
+             {
+diff --git a/visa/VisaToG4/TranslateMisc.cpp b/visa/VisaToG4/TranslateMisc.cpp
+index 58fbc7783..8e3a5baee 100644
+--- a/visa/VisaToG4/TranslateMisc.cpp
++++ b/visa/VisaToG4/TranslateMisc.cpp
+@@ -541,7 +541,7 @@ int IR_Builder::translateVISALifetimeInst(uint8_t properties, G4_Operand* var)
+             nullptr, nullptr, InstOpt_WriteEnable, true);
+     }
+ 
+-    // We dont treat lifetime.end specially for now because lifetime.start
++    // We don't treat lifetime.end specially for now because lifetime.start
+     // is expected to halt propagation of liveness upwards. lifetime.start
+     // would prevent loop local variables/sub-rooutine local variables
+     // from being live across entire loop/sub-routine.
+diff --git a/visa/iga/IGALibrary/Frontend/Formatter.cpp b/visa/iga/IGALibrary/Frontend/Formatter.cpp
+index cf631bb18..62c6fb104 100644
+--- a/visa/iga/IGALibrary/Frontend/Formatter.cpp
++++ b/visa/iga/IGALibrary/Frontend/Formatter.cpp
+@@ -579,7 +579,7 @@ private:
+ 
+     void formatFlagModifier(const Instruction &i) {
+         startColumn(cols.flagMod);
+-        // should be check for suportsFlagModifier, but looks like our
++        // should be check for supportsFlagModifier, but looks like our
+         // models are wrong on math instruction.
+         /*&& i.getOpSpec().supportsFlagModifier()*/
+         if (i.hasFlagModifier() && !i.getOpSpec().isSendOrSendsFamily()) {
+diff --git a/visa/iga/IGALibrary/IR/RegDeps.hpp b/visa/iga/IGALibrary/IR/RegDeps.hpp
+index 0a83da86c..90be73b65 100644
+--- a/visa/iga/IGALibrary/IR/RegDeps.hpp
++++ b/visa/iga/IGALibrary/IR/RegDeps.hpp
+@@ -416,7 +416,7 @@ private:
+         // form a macro start from dpasIt, and set the register footprint of all
+         // instruction in the macro into the given input and output DepSet
+         // - dpasCnt is the output of number of instructions in the macro
+-        // - return the last intruction in the formed macro
++        // - return the last instruction in the formed macro
+         const Instruction& formMacro(size_t &dpasCnt);
+ 
+     private:
+diff --git a/visa/iga/IGALibrary/IR/SWSBSetter.cpp b/visa/iga/IGALibrary/IR/SWSBSetter.cpp
+index 563b48d42..a2ee945d9 100644
+--- a/visa/iga/IGALibrary/IR/SWSBSetter.cpp
++++ b/visa/iga/IGALibrary/IR/SWSBSetter.cpp
+@@ -892,7 +892,7 @@ void SWSBAnalyzer::postProcess()
+     // Atomic are provided in the input so assume they are correct and have no internal dependency within
+     // the macro.
+     // Move all swsb to the first instruction in the Atomic block and also add the distance swsb to the
+-    // intruction following the Atomic block in case of it has dependency to the block but was resolved within
++    // instruction following the Atomic block in case of it has dependency to the block but was resolved within
+     // the instruction in the block
+     // E.g.
+     //      (W) mov (32|M0)  r13.0<2>:ub   r50.0<1;1,0>:uw   {Atomic, I@1}
+diff --git a/visa/iga/IGALibrary/Models/OpSpec.cpp b/visa/iga/IGALibrary/Models/OpSpec.cpp
+index f24ef131c..7540c1552 100644
+--- a/visa/iga/IGALibrary/Models/OpSpec.cpp
++++ b/visa/iga/IGALibrary/Models/OpSpec.cpp
+@@ -310,7 +310,7 @@ bool OpSpec::implicitSrcTypeVal(
+     } else if (is(Op::SYNC)) {
+         // sync imm32          has ud type
+         // sync reg32          type is required
+-        // sync null           type is ommitted
++        // sync null           type is omitted
+         if (isImmOrLbl) {
+             type = Type::UD;
+             return true;
+diff --git a/visa/include/VISAOptionsDefs.h b/visa/include/VISAOptionsDefs.h
+index 4de900cc6..e1f08f617 100644
+--- a/visa/include/VISAOptionsDefs.h
++++ b/visa/include/VISAOptionsDefs.h
+@@ -155,7 +155,7 @@ DEF_VISA_OPTION(vISA_GRFSpillCodeCleanup,   ET_BOOL, "-spillCleanup",    UNUSED,
+ DEF_VISA_OPTION(vISA_SpillSpaceCompression, ET_BOOL, "-nospillcompression",            UNUSED, true)
+ DEF_VISA_OPTION(vISA_ConsiderLoopInfoInRA,  ET_BOOL, "-noloopra",        UNUSED, true)
+ DEF_VISA_OPTION(vISA_ReserveR0,             ET_BOOL, "-reserveR0",       UNUSED, false)
+-DEF_VISA_OPTION(vISA_SpiltLLR,              ET_BOOL, "-nosplitllr",      UNUSED, true)
++DEF_VISA_OPTION(vISA_SplitLLR,              ET_BOOL, "-nosplitllr",      UNUSED, true)
+ DEF_VISA_OPTION(vISA_EnableGlobalScopeAnalysis,   ET_BOOL,  "-enableGlobalScopeAnalysis", UNUSED, false)
+ DEF_VISA_OPTION(vISA_LocalDeclareSplitInGlobalRA, ET_BOOL, "-noLocalSplit",        UNUSED, true)
+ DEF_VISA_OPTION(vISA_DisableSpillCoalescing, ET_BOOL, "-nospillcleanup", UNUSED, false)
+-- 
+2.20.1
+

@@ -1,0 +1,815 @@
+{
+  "copyright": [
+    "============================ begin_copyright_notice ============================",
+    "",
+    "Copyright (C) 2021-2023 Intel Corporation",
+    "",
+    "SPDX-License-Identifier: MIT",
+    "",
+    "============================= end_copyright_notice ============================="
+  ],
+  "FileDescription": [
+    "Description of CMCL builtins and rules of their translation into VC",
+    "intrinsics. More details can be found in GenerateTranslationCode.py"
+  ],
+  "HelperStructures": {
+    "OperandKind": ["Constant", "Input", "Output"]
+  },
+  "BuiltinDescriptions": {
+    "Select": {
+      "Name": "select",
+      "Operands": [
+        {"Name": "Condition", "Kind": "Input"},
+        {"Name": "TrueValue", "Kind": "Input"},
+        {"Name": "FalseValue", "Kind": "Input"}
+      ],
+      "TranslateInto": {
+        "Instruction": "SelectInst",
+        "ReturnType": {"GetBuiltinReturnType": []},
+        "Operands": [
+          {"GetBuiltinOperand": ["Condition"]},
+          {"GetBuiltinOperand": ["TrueValue"]},
+          {"GetBuiltinOperand": ["FalseValue"]}
+        ]
+      }
+    },
+    "RdRegionInt": {
+      "Name": "rdregion_int",
+      "Operands": [
+        {"Name": "Source", "Kind": "Input"},
+        {"Name": "VStride", "Kind": "Constant"},
+        {"Name": "Width", "Kind": "Constant"},
+        {"Name": "Stride", "Kind": "Constant"},
+        {"Name": "Offset", "Kind": "Input"}
+      ],
+      "TranslateInto": {
+        "VC-Intrinsic": "genx_rdregioni",
+        "ReturnType": {"GetBuiltinReturnType": []},
+        "Operands": [
+          {"GetBuiltinOperand": ["Source"]},
+          {"GetBuiltinOperand": ["VStride"]},
+          {"GetBuiltinOperand": ["Width"]},
+          {"GetBuiltinOperand": ["Stride"]},
+          {"GetBuiltinOperand": ["Offset"]},
+          {"Code": ["*UndefValue::get(IRB.getInt32Ty())"]}
+        ]
+      }
+    },
+    "RdRegionFloat": {
+      "Name": "rdregion_float",
+      "Operands": [
+        {"Name": "Source", "Kind": "Input"},
+        {"Name": "VStride", "Kind": "Constant"},
+        {"Name": "Width", "Kind": "Constant"},
+        {"Name": "Stride", "Kind": "Constant"},
+        {"Name": "Offset", "Kind": "Input"}
+      ],
+      "TranslateInto": {
+        "VC-Intrinsic": "genx_rdregionf",
+        "ReturnType": {"GetBuiltinReturnType": []},
+        "Operands": [
+          {"GetBuiltinOperand": ["Source"]},
+          {"GetBuiltinOperand": ["VStride"]},
+          {"GetBuiltinOperand": ["Width"]},
+          {"GetBuiltinOperand": ["Stride"]},
+          {"GetBuiltinOperand": ["Offset"]},
+          {"Code": ["*UndefValue::get(IRB.getInt32Ty())"]}
+        ]
+      }
+    },
+    "WrRegionInt": {
+      "Name": "wrregion_int",
+      "Operands": [
+        {"Name": "Destination", "Kind": "Input"},
+        {"Name": "Source", "Kind": "Input"},
+        {"Name": "VStride", "Kind": "Constant"},
+        {"Name": "Width", "Kind": "Constant"},
+        {"Name": "Stride", "Kind": "Constant"},
+        {"Name": "Offset", "Kind": "Input"}
+      ],
+      "TranslateInto": {
+        "VC-Intrinsic": "genx_wrregioni",
+        "ReturnType": {"GetBuiltinReturnType": []},
+        "Operands": [
+          {"GetBuiltinOperand": ["Destination"]},
+          {"GetBuiltinOperand": ["Source"]},
+          {"GetBuiltinOperand": ["VStride"]},
+          {"GetBuiltinOperand": ["Width"]},
+          {"GetBuiltinOperand": ["Stride"]},
+          {"GetBuiltinOperand": ["Offset"]},
+          {"Code": ["*UndefValue::get(IRB.getInt32Ty())"]},
+          {"Code": ["*IRB.getTrue()"]}
+        ]
+      }
+    },
+    "WrRegionFloat": {
+      "Name": "wrregion_float",
+      "Operands": [
+        {"Name": "Destination", "Kind": "Input"},
+        {"Name": "Source", "Kind": "Input"},
+        {"Name": "VStride", "Kind": "Constant"},
+        {"Name": "Width", "Kind": "Constant"},
+        {"Name": "Stride", "Kind": "Constant"},
+        {"Name": "Offset", "Kind": "Input"}
+      ],
+      "TranslateInto": {
+        "VC-Intrinsic": "genx_wrregionf",
+        "ReturnType": {"GetBuiltinReturnType": []},
+        "Operands": [
+          {"GetBuiltinOperand": ["Destination"]},
+          {"GetBuiltinOperand": ["Source"]},
+          {"GetBuiltinOperand": ["VStride"]},
+          {"GetBuiltinOperand": ["Width"]},
+          {"GetBuiltinOperand": ["Stride"]},
+          {"GetBuiltinOperand": ["Offset"]},
+          {"Code": ["*UndefValue::get(IRB.getInt32Ty())"]},
+          {"Code": ["*IRB.getTrue()"]}
+        ]
+      }
+    },
+    "Trap": {
+      "Name": "trap",
+      "Operands": [],
+      "TranslateInto": {
+        "LLVM-Intrinsic": "trap",
+        "ReturnType": {"GetBuiltinReturnType": []},
+        "Operands": []
+      }
+    },
+    "DebugTrap": {
+      "Name": "debugtrap",
+      "Operands": [],
+      "TranslateInto": {
+        "LLVM-Intrinsic": "debugtrap",
+        "ReturnType": {"GetBuiltinReturnType": []},
+        "Operands": []
+      }
+    },
+    "AssertBuffer": {
+      "Name": "assert_buffer",
+      "Operands": [],
+      "TranslateInto": {
+        "VC-Intrinsic": "assert_buffer",
+        "ReturnType": {"GetBuiltinReturnType": []},
+        "Operands": []
+      }
+    },
+    "PrintfBuffer": {
+      "Name": "printf_buffer",
+      "Operands": [],
+      "TranslateInto": {
+        "VC-Intrinsic": "print_buffer",
+        "ReturnType": {"GetBuiltinReturnType": []},
+        "Operands": []
+      }
+    },
+    "PrintfFormatIndex": {
+      "Name": "printf_format_index",
+      "Operands": [
+        {"Name": "Source", "Kind": "Input"}
+      ],
+      "TranslateInto": {
+        "VC-Intrinsic": "print_format_index",
+        "ReturnType": {"GetBuiltinReturnType": []},
+        "Operands": [
+          {"GetBuiltinOperand": ["Source"]}
+        ]
+      }
+    },
+    "Gather": {
+      "Name": "gather",
+      "Operands": [
+        {"Name": "AddressSpace", "Kind": "Constant"},
+        {"Name": "Pointers", "Kind": "Input"},
+        {"Name": "Alignment", "Kind": "Constant"},
+        {"Name": "Mask", "Kind": "Input"},
+        {"Name": "Passthru", "Kind": "Input"}
+      ],
+      "TranslateInto": {
+        "LLVM-Intrinsic": "masked_gather",
+        "ReturnType": {"GetBuiltinReturnType": []},
+        "Operands": [
+          {"GetBuiltinOperand": ["AddressSpace"]},
+          {"GetBuiltinOperand": ["Pointers"]},
+          {"GetBuiltinOperand": ["Alignment"]},
+          {"GetBuiltinOperand": ["Mask"]},
+          {"GetBuiltinOperand": ["Passthru"]}
+        ]
+      }
+    },
+    "Scatter": {
+      "Name": "scatter",
+      "Operands": [
+        {"Name": "Data", "Kind": "Input"},
+        {"Name": "AddressSpace", "Kind": "Constant"},
+        {"Name": "Pointers", "Kind": "Input"},
+        {"Name": "Alignment", "Kind": "Constant"},
+        {"Name": "Mask", "Kind": "Input"}
+      ],
+      "TranslateInto": {
+        "LLVM-Intrinsic": "masked_scatter",
+        "ReturnType": {"GetBuiltinReturnType": []},
+        "Operands": [
+          {"GetBuiltinOperand": ["Data"]},
+          {"GetBuiltinOperand": ["AddressSpace"]},
+          {"GetBuiltinOperand": ["Pointers"]},
+          {"GetBuiltinOperand": ["Alignment"]},
+          {"GetBuiltinOperand": ["Mask"]}
+        ]
+      }
+    },
+    "AtomicBti": {
+      "Name": "vector_atomic_bti",
+      "Operands": [
+        {"Name": "Mask", "Kind": "Input"},
+        {"Name": "Opcode", "Kind": "Input"},
+        {"Name": "AddrSize", "Kind": "Input"},
+        {"Name": "ElemSize", "Kind": "Input"},
+        {"Name": "CacheControls", "Kind": "Input"},
+        {"Name": "Bti", "Kind": "Input"},
+        {"Name": "Index", "Kind": "Input"},
+        {"Name": "Scale", "Kind": "Input"},
+        {"Name": "Offset", "Kind": "Input"},
+        {"Name": "Src1", "Kind": "Input"},
+        {"Name": "Src2", "Kind": "Input"},
+        {"Name": "Passthru", "Kind": "Input"}
+      ],
+      "TranslateInto": {
+        "VC-Intrinsic": "lsc_atomic_bti",
+        "ReturnType": {"GetBuiltinReturnType": []},
+        "Operands": [
+          {"GetBuiltinOperand": ["Mask"]},
+          {"GetBuiltinOperand": ["Opcode"]},
+          {"GetBuiltinOperand": ["AddrSize"]},
+          {"GetBuiltinOperand": ["ElemSize"]},
+          {"GetBuiltinOperand": ["CacheControls"]},
+          {"GetBuiltinOperand": ["Bti"]},
+          {"GetBuiltinOperand": ["Index"]},
+          {"GetBuiltinOperand": ["Scale"]},
+          {"GetBuiltinOperand": ["Offset"]},
+          {"GetBuiltinOperand": ["Src1"]},
+          {"GetBuiltinOperand": ["Src2"]},
+          {"GetBuiltinOperand": ["Passthru"]}
+        ]
+      }
+    },
+    "AtomicSlm": {
+      "Name": "vector_atomic_slm",
+      "Operands": [
+        {"Name": "Mask", "Kind": "Input"},
+        {"Name": "Opcode", "Kind": "Input"},
+        {"Name": "AddrSize", "Kind": "Input"},
+        {"Name": "ElemSize", "Kind": "Input"},
+        {"Name": "CacheControls", "Kind": "Input"},
+        {"Name": "Base", "Kind": "Input"},
+        {"Name": "Index", "Kind": "Input"},
+        {"Name": "Scale", "Kind": "Input"},
+        {"Name": "Offset", "Kind": "Input"},
+        {"Name": "Src1", "Kind": "Input"},
+        {"Name": "Src2", "Kind": "Input"},
+        {"Name": "Passthru", "Kind": "Input"}
+      ],
+      "TranslateInto": {
+        "VC-Intrinsic": "lsc_atomic_slm",
+        "ReturnType": {"GetBuiltinReturnType": []},
+        "Operands": [
+          {"GetBuiltinOperand": ["Mask"]},
+          {"GetBuiltinOperand": ["Opcode"]},
+          {"GetBuiltinOperand": ["AddrSize"]},
+          {"GetBuiltinOperand": ["ElemSize"]},
+          {"GetBuiltinOperand": ["CacheControls"]},
+          {"GetBuiltinOperand": ["Base"]},
+          {"GetBuiltinOperand": ["Index"]},
+          {"GetBuiltinOperand": ["Scale"]},
+          {"GetBuiltinOperand": ["Offset"]},
+          {"GetBuiltinOperand": ["Src1"]},
+          {"GetBuiltinOperand": ["Src2"]},
+          {"GetBuiltinOperand": ["Passthru"]}
+        ]
+      }
+    },
+    "AtomicUgm": {
+      "Name": "vector_atomic_ugm",
+      "Operands": [
+        {"Name": "Mask", "Kind": "Input"},
+        {"Name": "Opcode", "Kind": "Input"},
+        {"Name": "AddrSize", "Kind": "Input"},
+        {"Name": "ElemSize", "Kind": "Input"},
+        {"Name": "CacheControls", "Kind": "Input"},
+        {"Name": "Base", "Kind": "Input"},
+        {"Name": "Index", "Kind": "Input"},
+        {"Name": "Scale", "Kind": "Input"},
+        {"Name": "Offset", "Kind": "Input"},
+        {"Name": "Src1", "Kind": "Input"},
+        {"Name": "Src2", "Kind": "Input"},
+        {"Name": "Passthru", "Kind": "Input"}
+      ],
+      "TranslateInto": {
+        "VC-Intrinsic": "lsc_atomic_ugm",
+        "ReturnType": {"GetBuiltinReturnType": []},
+        "Operands": [
+          {"GetBuiltinOperand": ["Mask"]},
+          {"GetBuiltinOperand": ["Opcode"]},
+          {"GetBuiltinOperand": ["AddrSize"]},
+          {"GetBuiltinOperand": ["ElemSize"]},
+          {"GetBuiltinOperand": ["CacheControls"]},
+          {"GetBuiltinOperand": ["Base"]},
+          {"GetBuiltinOperand": ["Index"]},
+          {"GetBuiltinOperand": ["Scale"]},
+          {"GetBuiltinOperand": ["Offset"]},
+          {"GetBuiltinOperand": ["Src1"]},
+          {"GetBuiltinOperand": ["Src2"]},
+          {"GetBuiltinOperand": ["Passthru"]}
+        ]
+      }
+    },
+    "All": {
+      "Name": "all",
+      "Operands": [
+        {
+          "Name": "Source",
+          "Kind": "Input"
+        }
+      ],
+      "TranslateInto": {
+        "VC-Intrinsic": "genx_all",
+        "ReturnType": {
+          "GetBuiltinReturnType": []
+        },
+        "Operands": [
+          {
+            "GetBuiltinOperand": [
+              "Source"
+            ]
+          }
+        ]
+      }
+    },
+    "Any": {
+      "Name": "any",
+      "Operands": [
+        {
+          "Name": "Source",
+          "Kind": "Input"
+        }
+      ],
+      "TranslateInto": {
+        "VC-Intrinsic": "genx_any",
+        "ReturnType": {
+          "GetBuiltinReturnType": []
+        },
+        "Operands": [
+          {
+            "GetBuiltinOperand": [
+              "Source"
+            ]
+          }
+        ]
+      }
+    },
+    "LZD": {
+      "Name": "lzd",
+      "Operands": [
+        {"Name": "Source", "Kind": "Input"}
+      ],
+      "TranslateInto": {
+        "VC-Intrinsic": "genx_lzd",
+        "ReturnType": {"GetBuiltinReturnType": []},
+        "Operands": [
+          {"GetBuiltinOperand": ["Source"]}
+        ]
+      }
+    },
+    "AddCarry": {
+      "Name": "addc",
+      "Operands": [
+        {"Name": "Sum", "Kind": "Output"},
+        {"Name": "FirstSrc", "Kind": "Input"},
+        {"Name": "SecondSrc", "Kind": "Input"}
+      ],
+      "TranslateInto": {
+        "VC-Intrinsic": "genx_addc",
+        "ReturnType": {
+          "Code": [
+            "getStructureOf({}, {})",
+            {"GetBuiltinReturnType": []},
+            {"GetBuiltinOperandType": ["Sum"]}
+          ]
+        },
+        "Operands": [
+          {"GetBuiltinOperand": ["FirstSrc"]},
+          {"GetBuiltinOperand": ["SecondSrc"]}
+        ]
+      }
+    },
+    "RSQRT": {
+      "Name": "rsqrt",
+      "Operands": [
+        {
+          "Name": "Source",
+          "Kind": "Input"
+        }
+      ],
+      "TranslateInto": {
+        "VC-Intrinsic": "genx_rsqrt",
+        "ReturnType": {
+          "GetBuiltinReturnType": []
+        },
+        "Operands": [
+          {
+            "GetBuiltinOperand": [
+              "Source"
+            ]
+          }
+        ]
+      }
+    },
+    "LocalID": {
+      "Name": "local_id",
+      "Operands": [],
+      "TranslateInto": {
+        "VC-Intrinsic": "genx_local_id",
+        "ReturnType": {"GetBuiltinReturnType": []},
+        "Operands": []
+      }
+    },
+    "LocalSize": {
+      "Name": "local_size",
+      "Operands": [],
+      "TranslateInto": {
+        "VC-Intrinsic": "genx_local_size",
+        "ReturnType": {"GetBuiltinReturnType": []},
+        "Operands": []
+      }
+    },
+    "GroupCount": {
+      "Name": "group_count",
+      "Operands": [],
+      "TranslateInto": {
+        "VC-Intrinsic": "genx_group_count",
+        "ReturnType": {"GetBuiltinReturnType": []},
+        "Operands": []
+      }
+    },
+    "GroupIDX": {
+      "Name": "group_id_x",
+      "Operands": [],
+      "TranslateInto": {
+        "VC-Intrinsic": "genx_group_id_x",
+        "ReturnType": {"GetBuiltinReturnType": []},
+        "Operands": []
+      }
+    },
+    "GroupIDY": {
+      "Name": "group_id_y",
+      "Operands": [],
+      "TranslateInto": {
+        "VC-Intrinsic": "genx_group_id_y",
+        "ReturnType": {"GetBuiltinReturnType": []},
+        "Operands": []
+      }
+    },
+    "GroupIDZ": {
+      "Name": "group_id_z",
+      "Operands": [],
+      "TranslateInto": {
+        "VC-Intrinsic": "genx_group_id_z",
+        "ReturnType": {"GetBuiltinReturnType": []},
+        "Operands": []
+      }
+    },
+    "ThreadID": {
+      "Name": "hw_thread_id",
+      "Operands": [],
+      "TranslateInto": {
+        "VC-Intrinsic": "genx_get_hwid",
+        "ReturnType": {
+          "GetBuiltinReturnType": []
+        },
+        "Operands": []
+      }
+    },
+    "Barrier": {
+      "Name": "barrier",
+      "Operands": [],
+      "TranslateInto": {
+        "VC-Intrinsic": "genx_barrier",
+        "ReturnType": {"GetBuiltinReturnType": []},
+        "Operands": []
+      }
+    },
+    "SplitBarrier": {
+      "Name": "sbarrier",
+      "Operands": [
+        {"Name": "Source", "Kind": "Input"}
+      ],
+      "TranslateInto": {
+        "VC-Intrinsic": "genx_sbarrier",
+        "ReturnType": {"GetBuiltinReturnType": []},
+        "Operands": [
+          {"GetBuiltinOperand": ["Source"]}
+        ]
+      }
+    },
+    "Fence": {
+      "Name": "fence",
+      "Operands": [
+        {"Name": "Source", "Kind": "Input"}
+      ],
+      "TranslateInto": {
+        "VC-Intrinsic": "genx_fence",
+        "ReturnType": {"GetBuiltinReturnType": []},
+        "Operands": [
+          {"GetBuiltinOperand": ["Source"]}
+        ]
+      }
+    },
+    "CBit": {
+      "Name": "cbit",
+      "Operands": [
+        {"Name": "Source", "Kind": "Input"}
+      ],
+      "TranslateInto": {
+        "VC-Intrinsic": "genx_cbit",
+        "ReturnType": {"GetBuiltinReturnType": []},
+        "Operands": [
+          {"GetBuiltinOperand": ["Source"]}
+        ]
+      }
+    },
+    "BFRev": {
+      "Name": "bfrev",
+      "Operands": [
+        {"Name": "Source", "Kind": "Input"}
+      ],
+      "TranslateInto": {
+        "VC-Intrinsic": "genx_bfrev",
+        "ReturnType": {"GetBuiltinReturnType": []},
+        "Operands": [
+          {"GetBuiltinOperand": ["Source"]}
+        ]
+      }
+    },
+    "Fma": {
+      "Name": "fma",
+      "Operands": [
+        {"Name": "Factor0", "Kind": "Input"},
+        {"Name": "Factor1", "Kind": "Input"},
+        {"Name": "Addend", "Kind": "Input"}
+      ],
+      "TranslateInto": {
+        "LLVM-Intrinsic": "fma",
+        "ReturnType": {"GetBuiltinReturnType": []},
+        "Operands": [
+          {"GetBuiltinOperand": ["Factor0"]},
+          {"GetBuiltinOperand": ["Factor1"]},
+          {"GetBuiltinOperand": ["Addend"]}
+        ]
+      }
+    },
+    "AbsInt": {
+      "Name": "abs_int",
+      "Operands": [
+        {"Name": "Source", "Kind": "Input"}
+      ],
+      "TranslateInto": {
+        "VC-Intrinsic": "genx_absi",
+        "ReturnType": {"GetBuiltinReturnType": []},
+        "Operands": [
+          {"GetBuiltinOperand": ["Source"]}
+        ]
+      }
+    },
+    "AbsFloat": {
+      "Name": "abs_float",
+      "Operands": [
+        {"Name": "Source", "Kind": "Input"}
+      ],
+      "TranslateInto": {
+        "LLVM-Intrinsic": "fabs",
+        "ReturnType": {"GetBuiltinReturnType": []},
+        "Operands": [
+          {"GetBuiltinOperand": ["Source"]}
+        ]
+      }
+    },
+    "Ceil": {
+      "Name": "ceil",
+      "Operands": [
+        {"Name": "Source", "Kind": "Input"}
+      ],
+      "TranslateInto": {
+        "LLVM-Intrinsic": "ceil",
+        "ReturnType": {"GetBuiltinReturnType": []},
+        "Operands": [
+          {"GetBuiltinOperand": ["Source"]}
+        ]
+      }
+    },
+    "Floor": {
+      "Name": "floor",
+      "Operands": [
+        {"Name": "Source", "Kind": "Input"}
+      ],
+      "TranslateInto": {
+        "LLVM-Intrinsic": "floor",
+        "ReturnType": {"GetBuiltinReturnType": []},
+        "Operands": [
+          {"GetBuiltinOperand": ["Source"]}
+        ]
+      }
+    },
+    "Trunc": {
+      "Name": "trunc",
+      "Operands": [
+        {"Name": "Source", "Kind": "Input"}
+      ],
+      "TranslateInto": {
+        "LLVM-Intrinsic": "trunc",
+        "ReturnType": {"GetBuiltinReturnType": []},
+        "Operands": [
+          {"GetBuiltinOperand": ["Source"]}
+        ]
+      }
+    },
+    "Roundne": {
+      "Name": "roundne",
+      "Operands": [
+        {"Name": "Source", "Kind": "Input"}
+      ],
+      "TranslateInto": {
+        "VC-Intrinsic": "genx_rnde",
+        "ReturnType": {"GetBuiltinReturnType": []},
+        "Operands": [
+          {"GetBuiltinOperand": ["Source"]}
+        ]
+      }
+    },
+    "Sqrt": {
+      "Name": "sqrt",
+      "Operands": [
+        {"Name": "Source", "Kind": "Input"},
+        {"Name": "IsFast", "Kind": "Constant"}
+      ],
+      "TranslateInto": {
+        "LLVM-Intrinsic": "sqrt",
+        "ReturnType": {"GetBuiltinReturnType": []},
+        "Operands": [
+          {"GetBuiltinOperand": ["Source"]},
+          {"GetBuiltinOperand": ["IsFast"]}
+        ]
+      }
+    },
+    "MinNum": {
+      "Name": "minnum",
+      "Operands": [
+        {"Name": "Source0", "Kind": "Input"},
+        {"Name": "Source1", "Kind": "Input"}
+      ],
+      "TranslateInto": {
+        "LLVM-Intrinsic": "minnum",
+        "ReturnType": {"GetBuiltinReturnType": []},
+        "Operands": [
+          {"GetBuiltinOperand": ["Source0"]},
+          {"GetBuiltinOperand": ["Source1"]}
+        ]
+      }
+    },
+    "MaxNum": {
+      "Name": "maxnum",
+      "Operands": [
+        {"Name": "Source0", "Kind": "Input"},
+        {"Name": "Source1", "Kind": "Input"}
+      ],
+      "TranslateInto": {
+        "LLVM-Intrinsic": "maxnum",
+        "ReturnType": {"GetBuiltinReturnType": []},
+        "Operands": [
+          {"GetBuiltinOperand": ["Source0"]},
+          {"GetBuiltinOperand": ["Source1"]}
+        ]
+      }
+    },
+    "Log2": {
+      "Name": "log2",
+      "Operands": [
+        {"Name": "Source", "Kind": "Input"},
+        {"Name": "IsFast", "Kind": "Constant"}
+      ],
+      "TranslateInto": {
+        "LLVM-Intrinsic": "log2",
+        "ReturnType": {"GetBuiltinReturnType": []},
+        "Operands": [
+          {"GetBuiltinOperand": ["Source"]},
+          {"GetBuiltinOperand": ["IsFast"]}
+        ]
+      }
+    },
+    "Exp2": {
+      "Name": "exp2",
+      "Operands": [
+        {"Name": "Source", "Kind": "Input"},
+        {"Name": "IsFast", "Kind": "Constant"}
+      ],
+      "TranslateInto": {
+        "LLVM-Intrinsic": "exp2",
+        "ReturnType": {"GetBuiltinReturnType": []},
+        "Operands": [
+          {"GetBuiltinOperand": ["Source"]},
+          {"GetBuiltinOperand": ["IsFast"]}
+        ]
+      }
+    },
+    "Powr": {
+      "Name": "powr",
+      "Operands": [
+        {"Name": "Base", "Kind": "Input"},
+        {"Name": "Exponent", "Kind": "Input"},
+        {"Name": "IsFast", "Kind": "Constant"}
+      ],
+      "TranslateInto": {
+        "LLVM-Intrinsic": "pow",
+        "ReturnType": {"GetBuiltinReturnType": []},
+        "Operands": [
+          {"GetBuiltinOperand": ["Base"]},
+          {"GetBuiltinOperand": ["Exponent"]},
+          {"GetBuiltinOperand": ["IsFast"]}
+        ]
+      }
+    },
+    "Sin": {
+      "Name": "sin",
+      "Operands": [
+        {"Name": "Source", "Kind": "Input"},
+        {"Name": "IsFast", "Kind": "Constant"}
+      ],
+      "TranslateInto": {
+        "LLVM-Intrinsic": "sin",
+        "ReturnType": {"GetBuiltinReturnType": []},
+        "Operands": [
+          {"GetBuiltinOperand": ["Source"]},
+          {"GetBuiltinOperand": ["IsFast"]}
+        ]
+      }
+    },
+    "Cos": {
+      "Name": "cos",
+      "Operands": [
+        {"Name": "Source", "Kind": "Input"},
+        {"Name": "IsFast", "Kind": "Constant"}
+      ],
+      "TranslateInto": {
+        "LLVM-Intrinsic": "cos",
+        "ReturnType": {"GetBuiltinReturnType": []},
+        "Operands": [
+          {"GetBuiltinOperand": ["Source"]},
+          {"GetBuiltinOperand": ["IsFast"]}
+        ]
+      }
+    },
+    "AtomicRMW": {
+        "Name": "atomicrmw",
+        "Operands": [
+          {"Name": "Ptr", "Kind": "Input"},
+          {"Name": "Operation", "Kind": "Input"},
+          {"Name": "Operand", "Kind": "Input"},
+          {"Name": "Semantics", "Kind": "Input"},
+          {"Name": "Scope", "Kind": "Input"}
+        ],
+        "TranslateInto": {
+          "Instruction": "AtomicRMWInst",
+          "ReturnType": {"GetBuiltinReturnType": []},
+          "Operands": [
+            {"GetBuiltinOperand": ["Ptr"]},
+            {"GetBuiltinOperand": ["Operation"]},
+            {"GetBuiltinOperand": ["Operand"]},
+            {"GetBuiltinOperand": ["Semantics"]},
+            {"GetBuiltinOperand": ["Scope"]}
+        ]
+      }
+    },
+    "CmpXchg": {
+        "Name": "cmpxchg",
+        "Operands": [
+          {"Name": "Ptr", "Kind": "Input"},
+          {"Name": "Operand0", "Kind": "Input"},
+          {"Name": "Operand1", "Kind": "Input"},
+          {"Name": "SemanticsSuccess", "Kind": "Input"},
+          {"Name": "SemanticsFailure", "Kind": "Input"},
+          {"Name": "Scope", "Kind": "Input"}
+        ],
+        "TranslateInto": {
+          "Instruction": "CmpXchgInst",
+          "ReturnType": {"GetBuiltinReturnType": []},
+          "Operands": [
+            {"GetBuiltinOperand": ["Ptr"]},
+            {"GetBuiltinOperand": ["Operand0"]},
+            {"GetBuiltinOperand": ["Operand1"]},
+            {"GetBuiltinOperand": ["SemanticsSuccess"]},
+            {"GetBuiltinOperand": ["SemanticsFailure"]},
+            {"GetBuiltinOperand": ["Scope"]}
+        ]
+      }
+    }
+  }
+}
