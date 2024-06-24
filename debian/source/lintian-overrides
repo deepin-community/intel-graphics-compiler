@@ -1,0 +1,5 @@
+# test data
+very-long-line-length-in-source-file * > * [IGC/Compiler/tests/VectorPreProcess/test_no_crash.ll:*]
+
+# generated file
+very-long-line-length-in-source-file * > * [IGC/ZEBinWriter/zebin/source/autogen/ZEInfo.hpp:*]

@@ -1,0 +1,26 @@
+/*========================== begin_copyright_notice ============================
+
+Copyright (C) 2018-2021 Intel Corporation
+
+SPDX-License-Identifier: MIT
+
+============================= end_copyright_notice ===========================*/
+
+#ifndef IGC_OPENCL_H
+#define IGC_OPENCL_H
+
+#if defined(_WIN64)
+  #cmakedefine IGC_LIBRARY_NAME "${IGC_LIBRARY_NAME}64.dll"
+  #cmakedefine FCL_LIBRARY_NAME "${FCL_LIBRARY_NAME}64.dll"
+#elif defined(_WIN32)
+  #cmakedefine IGC_LIBRARY_NAME "${IGC_LIBRARY_NAME}32.dll"
+  #cmakedefine FCL_LIBRARY_NAME "${FCL_LIBRARY_NAME}32.dll"
+#elif defined(ANDROID)
+  #cmakedefine IGC_LIBRARY_NAME "lib${IGC_LIBRARY_NAME}.so"
+  #cmakedefine FCL_LIBRARY_NAME "lib${FCL_LIBRARY_NAME}.so"
+#else
+  #cmakedefine IGC_LIBRARY_NAME "lib${IGC_LIBRARY_NAME}.so.${IGC_API_MAJOR_VERSION}"
+  #cmakedefine FCL_LIBRARY_NAME "lib${FCL_LIBRARY_NAME}.so.${IGC_API_MAJOR_VERSION}"
+#endif
+
+#endif // IGC_OPENCL_H

@@ -1,0 +1,12 @@
+diff --git a/IGC/CMakeLists.txt b/IGC/CMakeLists.txt
+index 811c6f575..e082b6ed1 100644
+--- a/IGC/CMakeLists.txt
++++ b/IGC/CMakeLists.txt
+@@ -970,6 +970,7 @@ foreach(_compilerFlagName IN ITEMS "CMAKE_CXX_FLAGS" "CMAKE_C_FLAGS")
+         "${_compilerFlagName}"
+         PATTERN "${IGC_BUILD__RELEASE_PATTERN}"
+         SET_RAW
++          -U_FORTIFY_SOURCE
+           -D_FORTIFY_SOURCE=2
+           -fstack-protector
+     )

@@ -1,4 +1,35 @@
 #!/usr/bin/make -f
 
+export DEB_BUILD_MAINT_OPTIONS	 = hardening=+all
+
+include /usr/share/dpkg/pkg-info.mk
+
+LLVM_VERSION		 = $(shell sed -n -r '/^Build/,/^$$/s/.*llvm-([0-9]+)-dev.*/\1/p' debian/control)
+LLVM_UPSTREAM_VERSION	 = $(shell dpkg-query -f '$${source:Upstream-Version}' -W llvm-$(LLVM_VERSION)-dev)
+
 %:
-	dh $@
+	dh $@ --builddir build/
+
+override_dh_auto_configure:
+	dh_auto_configure -- \
+		-DCMAKE_BUILD_TYPE=Release \
+		-DIGC_OPTION__LLVM_PREFERRED_VERSION=$(LLVM_UPSTREAM_VERSION) \
+		-DIGC_OPTION__VC_INTRINSICS_MODE=Prebuilds \
+		-DIGC_OPTION__SPIRV_TOOLS_MODE=Prebuilds \
+		-DIGC_OPTION__USE_PREINSTALLED_SPRIV_HEADERS=ON \
+		-Wno-dev
+
+execute_after_dh_auto_install:
+	$(RM) -v debian/tmp/usr/include/igc/cif/CMakeLists.txt
+	$(RM) -v debian/tmp/usr/include/igc/cif/cif/CMakeLists.txt
+	$(RM) -v debian/tmp/usr/include/igc/cif/readme.txt
+
+override_dh_gencontrol:
+	dh_gencontrol -- \
+		-V'llvm:Version=$(LLVM_VERSION)'
+
+
+gentarball:
+	tar --transform 's,^,$(DEB_SOURCE)-$(DEB_VERSION_UPSTREAM)/,' \
+		--exclude 'debian' --exclude-vcs \
+		-cJf ../$(DEB_SOURCE)_$(DEB_VERSION_UPSTREAM).orig.tar.xz .
