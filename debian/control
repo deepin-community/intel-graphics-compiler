@@ -15,12 +15,12 @@ Build-Depends: debhelper-compat (= 13),
  spirv-tools,
  zlib1g-dev,
 # keep the clang/llvm version in sync
- clang-14,
- intel-vc-intrinsics-14-dev (>= 0.16.0),
- liblld-14-dev,
- libllvmspirvlib-14-dev,
- libopencl-clang-14-dev,
- llvm-14-dev,
+ clang-15,
+ intel-vc-intrinsics-dev (>= 0.16.0),
+ liblld-15-dev,
+ libllvmspirvlib-15-dev,
+ libopencl-clang-15-dev,
+ llvm-15-dev,
 Rules-Requires-Root: no
 Standards-Version: 4.6.1
 Homepage: https://github.com/intel/intel-graphics-compiler
